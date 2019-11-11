@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/11 17:11:30 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:24:44 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,29 @@
 # define RED 	"\033[1;31m"
 # define RESET	"\033[0m"
 
+typedef	struct	s_env
+{
+	char		**env;
+	char		*var;
+	int			iterator;
+}				t_env;
+
+
 typedef struct  s_sh
 {
 	char		**env;
 
+	char		*cmd_out;
+
 	// useless = priceless
 	char		*prompt;
+
 	// debug
 	char		**real_env;
+	char		*cmd;
 }				t_sh;
 
 char        **copy_array(char **array);
+char		*find_env(char	**env, char *var);
 
 #endif

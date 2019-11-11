@@ -6,7 +6,7 @@
 #    By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:09:42 by cylemair          #+#    #+#              #
-#    Updated: 2019/11/11 16:23:01 by cylemair         ###   ########.fr        #
+#    Updated: 2019/11/11 19:28:43 by cylemair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ NAME	=	minishell
 RM		=	rm -rf
 
 SRC		=	srcs/main.c 	\
+			srcs/copy_env.c	\
 
 OBJS	=	$(SRC:.c=.o)
 
