@@ -6,11 +6,11 @@
 #    By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:09:42 by cylemair          #+#    #+#              #
-#    Updated: 2019/11/11 19:28:43 by cylemair         ###   ########.fr        #
+#    Updated: 2019/11/23 15:37:13 by cylemair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc
+CC		=	gcc -g3
 
 CFLAGS	+=	-Werror -Wall -Wextra -I ./includes/
 
@@ -20,8 +20,10 @@ NAME	=	minishell
 
 RM		=	rm -rf
 
-SRC		=	srcs/main.c 	\
-			srcs/copy_env.c	\
+SRC		=	srcs/main.c 		\
+			srcs/copy_env.c		\
+			srcs/exec.c			\
+			srcs/std_parse.c	\
 
 OBJS	=	$(SRC:.c=.o)
 

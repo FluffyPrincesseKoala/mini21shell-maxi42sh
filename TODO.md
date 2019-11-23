@@ -53,7 +53,7 @@
 	use `access` to check right
 
 - setenv
-
+	check if exist and add or modify env
 
 - unsetenv
 	make a 'reset default env' (cause my keybord is shity HF)
@@ -65,6 +65,7 @@
 	shell_lvl...
 
 ##  Bonus
+- PS1 or (and?) bashrc compatible
 - auto-completion
 - history of all typed cmd (to implement thinks like !!)
 - `;` separator

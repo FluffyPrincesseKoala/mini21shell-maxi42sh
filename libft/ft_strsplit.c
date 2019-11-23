@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cylemair <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:37:46 by cylemair          #+#    #+#             */
-/*   Updated: 2018/12/19 16:37:46 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/11/13 20:33:54 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,17 @@ static size_t	ft_get_size_a(char const *s, char c)
 {
 	size_t		size_a;
 	char const	*temp_s;
+	//int			i;
 
 	size_a = 0;
+	//i = 0;
 	temp_s = s;
 	while (*temp_s != '\0')
 	{
 		if (*temp_s != c && (*(temp_s - 1) == c || (temp_s - 1) < s))
 			size_a++;
 		temp_s++;
+	//	i++;
 	}
 	return (size_a);
 }

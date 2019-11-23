@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:58:47 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/11 20:24:42 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/11/23 19:06:08 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char        **copy_array(char **array)
 	return (new);
 }
 
-char		*find_env(char	**env, char *var)
+char		*findenv(char **env, char *var)
 {
 	int		i;
 
@@ -44,4 +44,84 @@ char		*find_env(char	**env, char *var)
 		i += 1;
 	}
 	return (NULL);
+}
+
+char		**delenv(char **env, char *var)
+{
+	char	**new;
+	int		i;
+	int		j;
+	int		check;
+
+	i = 0;
+	j = 0;
+	check = 0;
+	if (!(new = malloc(sizeof(char*) * (array_len(env)))))
+		return (NULL);
+	while (env[i])
+	{
+		if (check || ft_strncmp(env[i], var, ft_strlen(var)))
+		{
+			new[j] = env[i];
+			j++;
+		}
+		else
+			check = 1;
+		i++;
+	}
+	new[j] = NULL;
+	return (check ? new : env);
+}
+
+char		**addenv(char **env, char *var)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	if (!(new = malloc(sizeof(char *) * (i + 2))))
+		return	(NULL);
+	i = 0;
+	while (env[i])
+	{
+		new[i] = ft_strdup(env[i]);
+		i++;
+	}
+	new[i] = ft_strdup(var);
+	i++;
+	new[i] = NULL;
+	return (new);
+}
+
+int			lendelim(char *str, char delim, int start)
+{
+	int		i;
+
+	i = start;
+	while (str && str[i] && str[i] != delim)
+		i++;
+	return (i);
+}
+
+char		**change_key(char **env, char *var)
+{
+	int		key_len;
+	int		i;
+
+	i = 0;
+	key_len = lendelim(var, '=', 0);
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], var, key_len))
+		{
+			ft_strdel(&env[i]);
+			env[i] = ft_strdup(var);
+			return (env);
+		}
+		i++;
+	}
+	env = addenv(env, var);
+	return (env);
 }
