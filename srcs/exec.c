@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/19 12:07:48 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/01 17:23:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,27 @@ int			exec_cmd(t_sh ell, char *path)
 	pid_t	cpid;
 
 	cpid = fork();
+	signal(SIGINT, proc_signal_handler);
 	if (cpid < 0)
 	{
 		ft_putstr_fd("fork faild at ", 2);
 		ft_putnbr_fd((int)cpid, 2);
 		ft_putchar('\n');
-		return (-1);
+		exit(-1);
 	}
 	if (cpid == 0)
 	{
-		if (execve(path, ell.args, ell.env))
-			return (-1);
+		//printf("PATH = %s\n{", path);
+		//for (int i = 0 ; ell.args[i] ; i++) {
+		//	printf("\'%s\',\n", ell.args[i]);
+		//}
+		//printf("}\n");
+		if (execve(path, ell.args, ell.env) == -1)
+		{
+			ft_putstr_fd("execve faild at ", 2);
+			exit(-1);
+		}
 	}
-	signal(SIGINT, NULL);
 	wait(&status);
 	return (0);
 }

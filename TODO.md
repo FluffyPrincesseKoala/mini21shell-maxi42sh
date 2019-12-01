@@ -53,13 +53,11 @@
 	use `access` to check right
 
 - setenv
-	check if exist and add or modify env
 
 - unsetenv
 	make a 'reset default env' (cause my keybord is shity HF)
 
 - env
-	env parser
 
 - exit
 	shell_lvl...

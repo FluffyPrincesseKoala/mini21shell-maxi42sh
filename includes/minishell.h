@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/23 18:57:51 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/01 17:39:46 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,17 @@ char		**change_key(char **env, char *var);
 char		*build_path(t_sh ell);
 int			exec_cmd(t_sh ell, char *path);
 void   		read_stdin(t_sh ell);
+void    	change_dir(const char *path, t_sh *ell);
 int		    check_builtin(t_sh *ell);
+int			get_var(t_sh *ell);
+int			tilt(t_sh *ell);
 
 void		putab(char **array);
+void		puterror(char *error);
 int			array_len(char **array);
+
+void		proc_signal_handler(int signo);
+void		signal_handler(int signo);
 
 
 #endif
