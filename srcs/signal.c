@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:48:04 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/26 15:49:37 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:46:18 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	proc_signal_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		ft_putstr("\n");
 		signal(SIGINT, proc_signal_handler);
+		ft_putstr("\n");
 	}
 }
 
@@ -33,7 +33,6 @@ void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		ft_putstr("\n");
-		ft_putstr("BONJOUR JE SUIS LE SIGNAL\n");
 		signal(SIGINT, signal_handler);
 	}
 }

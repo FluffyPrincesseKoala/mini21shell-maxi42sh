@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/01 17:38:51 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:33:24 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void    change_dir(const char *path, t_sh *ell)
 			new = ft_strjoin("PWD=", cwd);
 			change_key((*ell).env, new);
 			change_key((*ell).env, pwd);
-			//ft_strdel(&cwd);
 			ft_strdel(&new);
 			ft_strdel(&pwd);
 		}

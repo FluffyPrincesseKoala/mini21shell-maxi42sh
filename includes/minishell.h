@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/01 17:39:46 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:05:25 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ typedef struct  s_sh
 	char		**real_env;
 	char		*cmd_out;
 }				t_sh;
+
+typedef struct  s_built
+{
+	void	(*f)(struct s_sh *);
+	char	*name;
+}				t_built;
 
 char        **copy_array(char **array);
 char		*findenv(char	**env, char *var);

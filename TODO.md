@@ -112,3 +112,5 @@
 - history with `Ctrl+R`
 - auto-completion using `tab`
 - syntaxic coloration (on/off)
+
+treasure straight nerve against person dry grade friendship dog shiver bloom burygrant like distant giggle try
