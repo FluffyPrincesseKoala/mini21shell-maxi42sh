@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 11:16:28 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:31:55 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ char		*build_path(t_sh ell)
 	{
 		tmp2 = ft_strjoin(ell.paths[i], "/");
 		tmp = (tmp2) ? ft_strjoin(tmp2, ell.args[0]) : NULL;
+		ft_strdel(&tmp2);
 		if (tmp && !access((const char*)tmp, X_OK))
 			return (tmp);
+		ft_strdel(&tmp);
 		i += 1;
 	}
 	return (NULL);

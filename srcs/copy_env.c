@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:58:47 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 15:22:11 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:10:01 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char		**change_key(char **env, char *var)
 	{
 		if (!ft_strncmp(env[i], var, key_len))
 		{
-			ft_strdel(env[i]);
+			ft_strdel(&env[i]);
 			env[i] = ft_strdup(var);
 			return (env);
 		}

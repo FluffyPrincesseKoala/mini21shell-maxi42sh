@@ -5,13 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "gdb",
-            "request": "attach",
-            "name": "Attach to PID",
-            "target": "[PID]",
-            "cwd": "/home/cylemair/work/mini21shell-maxi42sh",
-            "valuesFormatting": "parseText"
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/Users/cylemair/work/toutpetitishell//minishell",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "/Users/cylemair/work/toutpetitishell/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
         }
-
     ]
 }

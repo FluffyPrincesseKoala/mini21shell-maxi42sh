@@ -3,75 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaveria <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/19 16:37:46 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 10:54:36 by cylemair         ###   ########.fr       */
+/*   Created: 2016/11/16 19:22:09 by lgaveria          #+#    #+#             */
+/*   Updated: 2017/01/10 22:45:32 by lgaveria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_copy_str(char const *s, char c, size_t size_a, char **ret)
+static int		ctwords(char const *s, char delim)
 {
-	size_t		i;
-	size_t		len_str;
+	int	i;
+	int	count;
 
 	i = 0;
-	len_str = 0;
-	while (i < size_a)
+	count = 0;
+	while (s[i])
 	{
-		if (*s != c && *s != '\0')
-			len_str++;
-		else if (len_str)
-		{
-			if ((ret[i] = (char *)malloc(sizeof(**ret) * len_str + 1)) == NULL)
-				return (1);
-			ft_strncpy(ret[i], s - len_str, len_str);
-			ret[i++][len_str] = '\0';
-			len_str = 0;
-		}
-		s++;
+		if (s[i] != delim)
+			if (s[i + 1] == delim || !s[i + 1])
+				count += 1;
+		i += 1;
 	}
-	return (0);
+	return (count);
 }
 
-static int		count_words(char const *s, char c)
+static int		ctchar(char const *s, char delim)
 {
-	int			count;
+	int	count;
 
 	count = 0;
-	if (*s != c && *s)
-	{
-		s++;
-		count++;
-	}
-	while (*s)
-	{
-		while (*s == c)
-		{
-			s++;
-			if (*s != c && *s)
-				count++;
-		}
-		s++;
-	}
+	while (s[count] != delim && s[count])
+		count += 1;
 	return (count);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char		**ret;
-	size_t		size_a;
+	char	**ret;
+	int		i;
+	int		j;
+	int		k;
 
-	if (s == NULL)
-		return (NULL);
-	size_a = count_words(s, c);
-	ret = (char **)malloc(sizeof(*ret) * (size_a + 1));
-	if (ret == NULL)
-		return (NULL);
-	if (ft_copy_str(s, c, size_a, ret))
-		return (NULL);
-	ret[size_a] = NULL;
+	if (!s || (ret = malloc(sizeof(char *) * (ctwords(s, c) + 1))) == 0)
+		return (0);
+	k = -1;
+	i = 0;
+	j = 0;
+	while (s[++k])
+	{
+		j = (s[k] == c) ? 0 : j;
+		if (s[k] != c)
+		{
+			if (j == 0)
+				if ((ret[i] = malloc(sizeof(char) * ctchar(&s[k], c) + 1)) == 0)
+					return (0);
+			ret[i][j++] = s[k];
+			ret[i][j] = '\0';
+		}
+		i += ((s[k + 1] == c || !s[k + 1]) && j != 0) ? 1 : 0;
+	}
+	ret[i] = NULL;
 	return (ret);
 }

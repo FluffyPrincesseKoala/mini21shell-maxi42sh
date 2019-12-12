@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 14:57:42 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:10:38 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		read_stdin(t_sh ell)
 	int		built;
 	char	*tmp;
 
+	built = 0;
 	while (1 && built != -1)
 	{
 		ft_putstr(ell.prompt);
