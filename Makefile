@@ -6,7 +6,7 @@
 #    By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:09:42 by cylemair          #+#    #+#              #
-#    Updated: 2019/11/26 15:50:10 by cylemair         ###   ########.fr        #
+#    Updated: 2019/12/12 13:56:21 by cylemair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC		=	srcs/main.c 		\
 			srcs/exec.c			\
 			srcs/std_parse.c	\
 			srcs/cd.c			\
-			srcs/signal.c		\
+			srcs/builtin.c		\
+			srcs/usefull.c		\
 
 OBJS	=	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/04 18:05:25 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:10:01 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 
 # define RED 	"\033[1;31m"
 # define RESET	"\033[0m"
-# define DEBUG(X)	ft_putstr("\033[1;31m________");ft_putstr(X);\
-					ft_putstr("_________\033[0m");
 
 typedef struct  s_sh
 {
@@ -40,18 +38,16 @@ typedef struct  s_sh
 	char		**args;
 	pid_t		*pid;
 
-	// useless = priceless
 	char		*prompt;
 
-	// debug
 	char		**real_env;
 	char		*cmd_out;
 }				t_sh;
 
 typedef struct  s_built
 {
-	void	(*f)(struct s_sh *);
-	char	*name;
+	void		(*f)(struct s_sh *);
+	char		*name;
 }				t_built;
 
 char        **copy_array(char **array);
@@ -68,12 +64,16 @@ int		    check_builtin(t_sh *ell);
 int			get_var(t_sh *ell);
 int			tilt(t_sh *ell);
 
+void		builtin_env(t_sh *ell);
+void		builtin_unsetenv(t_sh *ell);
+void		builtin_setenv(t_sh *ell);
+void		builtin_cd(t_sh *ell);
+void		builtin_echo(t_sh *ell);
+
 void		putab(char **array);
 void		puterror(char *error);
 int			array_len(char **array);
-
-void		proc_signal_handler(int signo);
-void		signal_handler(int signo);
-
+void		streplace(char **s1, char **s2);
+void		free_array(char **array);
 
 #endif

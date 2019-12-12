@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:37:46 by cylemair          #+#    #+#             */
-/*   Updated: 2019/11/13 20:33:54 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:54:36 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,27 @@ static int		ft_copy_str(char const *s, char c, size_t size_a, char **ret)
 	return (0);
 }
 
-static size_t	ft_get_size_a(char const *s, char c)
+static int		count_words(char const *s, char c)
 {
-	size_t		size_a;
-	char const	*temp_s;
-	//int			i;
+	int			count;
 
-	size_a = 0;
-	//i = 0;
-	temp_s = s;
-	while (*temp_s != '\0')
+	count = 0;
+	if (*s != c && *s)
 	{
-		if (*temp_s != c && (*(temp_s - 1) == c || (temp_s - 1) < s))
-			size_a++;
-		temp_s++;
-	//	i++;
+		s++;
+		count++;
 	}
-	return (size_a);
+	while (*s)
+	{
+		while (*s == c)
+		{
+			s++;
+			if (*s != c && *s)
+				count++;
+		}
+		s++;
+	}
+	return (count);
 }
 
 char			**ft_strsplit(char const *s, char c)
@@ -62,7 +66,7 @@ char			**ft_strsplit(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	size_a = ft_get_size_a(s, c);
+	size_a = count_words(s, c);
 	ret = (char **)malloc(sizeof(*ret) * (size_a + 1));
 	if (ret == NULL)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/04 14:52:43 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:16:28 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			exec_cmd(t_sh ell, char *path)
 	pid_t	cpid;
 
 	cpid = fork();
-	//signal(SIGINT, proc_signal_handler);
 	if (cpid < 0)
 	{
 		ft_putstr_fd("fork faild at ", 2);
