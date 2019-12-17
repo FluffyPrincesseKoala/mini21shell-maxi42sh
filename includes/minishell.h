@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 14:10:01 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/17 11:37:51 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct  s_sh
 	pid_t		*pid;
 
 	char		*prompt;
-
 	char		**real_env;
 	char		*cmd_out;
 }				t_sh;

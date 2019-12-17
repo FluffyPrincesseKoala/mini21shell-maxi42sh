@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 17:10:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:25:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void		read_stdin(t_sh ell)
 					exec_cmd(ell, tmp);
 				else if (!tmp)
 					exec_cmd(ell, ell.args[0]);
-				ft_strdel(&tmp);
 			}
+			free_array(ell.paths);
 			free_array(ell.args);
 		}
 		if (ell.cmd)
 			ft_strdel(&(ell.cmd));
+		if (tmp)
+			ft_strdel(&tmp);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:52:17 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 17:26:58 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:21:32 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static void	shlvlup(t_sh *ell)
 	char	*tmp;
 	int		bis;
 
-	old = findenv((*ell).env, "SHLVL");
+	old = ft_strdup(findenv((*ell).env, "SHLVL"));
 	bis = ft_atoi(old);
+	ft_strdel(&old);
 	bis++;
 	old = ft_strjoin((const char *)"SHLVL=", (tmp = ft_itoa(bis)));
 	(*ell).env = delenv((*ell).env, "SHLVL");
@@ -38,8 +39,13 @@ int         main(int argc, char **argv, char **env)
 	// ell.env = copy_array(env);
 	// ell.real_env = env;
 	ell.env = env;
+	ell.cmd = NULL;
+	ell.paths = NULL;
+	ell.args = NULL;
 	shlvlup(&ell);
 	read_stdin(ell);
+	free(ell.prompt);
+	free_array(ell.env);
 	while (1);
 	return (1);
 }

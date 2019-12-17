@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 17:31:55 by cylemair         ###   ########.fr       */
+/*   Updated: 2019/12/17 11:57:27 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int			exec_cmd(t_sh ell, char *path)
 	{
 		if (execve(path, ell.args, ell.env) == -1)
 		{
+			ft_strdel(&path);
 			puterror("commande inconnue...\n");
 			exit(-1);
 		}
+		ft_strdel(&path);
 		exit(1);
 	}
 	else

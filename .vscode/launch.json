@@ -8,12 +8,15 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/cylemair/work/toutpetitishell//minishell",
-            "args": [],
+            "program": "${workspaceFolder}/minishell",
+            "args": [
+                "<",
+                "input.txt",
+            ],
             "stopAtEntry": false,
-            "cwd": "/Users/cylemair/work/toutpetitishell/",
+            "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "lldb"
         }
     ]

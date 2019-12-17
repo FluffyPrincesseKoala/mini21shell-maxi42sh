@@ -6,11 +6,11 @@
 #    By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:09:42 by cylemair          #+#    #+#              #
-#    Updated: 2019/12/12 13:56:21 by cylemair         ###   ########.fr        #
+#    Updated: 2019/12/17 12:26:38 by cylemair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc -g3
+CC		=	gcc -g
 
 CFLAGS	+=	-Werror -Wall -Wextra -I ./includes/
 
