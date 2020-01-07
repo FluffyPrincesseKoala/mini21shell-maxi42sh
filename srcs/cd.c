@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/04 17:33:24 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:08:50 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void    change_dir(const char *path, t_sh *ell)
 			tmp = findenv((*ell).env, "PWD");
 			pwd = ft_strjoin("OLDPWD=", tmp);
 			new = ft_strjoin("PWD=", cwd);
-			change_key((*ell).env, new);
-			change_key((*ell).env, pwd);
+			(*ell).env = change_key((*ell).env, new);
+			(*ell).env = change_key((*ell).env, pwd);
 			ft_strdel(&new);
 			ft_strdel(&pwd);
 		}
@@ -59,54 +59,61 @@ int				is_file(char *path)
 	return (S_ISREG(sb.st_mode));
 }
 
-int				tilt(t_sh *ell)
+void			tilt(t_vect **head, t_sh ell)
 {
-	char		*tmp;
+	t_vect		*lst;
 	char		*map;
 	char		**tab;
 	int			i;
 
-	i = 0;
-	tmp = findenv((*ell).env, "HOME");
-	while ((*ell).args[i])
+	if (head)
+		lst = *head;
+	while (lst)
 	{
-		if (ft_strchr((*ell).args[i], '~'))
+		i = -1;
+		while (lst->arg[++i])
 		{
-			tab = ft_strsplit((*ell).args[i], '~');
-			map = ft_strjoin(tab[0], tmp);
-			ft_strdel(&(*ell).args[i]);
-			(*ell).args[i] = ft_strjoin(map, tab[0]);
-			ft_strdel(&map);
-			ft_strdel(&tab[0]);
-			ft_strdel(&tab[1]);
-			free(tab);
+			if (ft_strchr(lst->arg[i], '~'))
+			{
+				tab = ft_strsplit(lst->arg[i], '~');
+				map = ft_strjoin(tab[0], findenv(ell.env, "HOME"));
+				ft_strdel(&lst->arg[i]);
+				lst->arg[i] = ft_strjoin(map, tab[0]);
+				ft_strdel(&map);
+				free_array(tab);
+			}
 		}
-		i++;
+		lst = lst->next;
 	}
-	return (1);
 }
 
-int				get_var(t_sh *ell)
+int				get_var(t_vect **head, char **env)
 {
+	t_vect		*lst;
 	char		*tmp;
 	char		*var;
 	int			i;
 	int			count;
 
-	i = 0;
 	count = 0;
-	while ((*ell).args[i])
+	if (head)
+		lst = *head;
+	while (lst)
 	{
-		if ((*ell).args[i][0] == '$')
+		i = -1;
+		while (lst->arg[++i])
 		{
-			var = ft_strdup(*((*ell).args + i) + 1);
-			tmp = findenv((*ell).env, var);
-			ft_strdel(&(*ell).args[i]);
-			ft_strdel(&var);
-			(*ell).args[i] = ft_strdup((tmp) ? tmp : "");
-			count++;
+			if (lst->arg[i] && lst->arg[i][0] == '$')
+			{
+				var = ft_strdup(*((lst->arg + i) + 1));
+				tmp = findenv(env, var);
+				ft_strdel(&lst->arg[i]);
+				ft_strdel(&var);
+				lst->arg[i] = ft_strdup((tmp) ? tmp : "");
+				count++;
+			}
 		}
-		i++;
+		lst = lst->next;
 	}
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 11:16:28 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:23:09 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*build_path(t_sh ell)
 	while (ell.paths[i])
 	{
 		tmp2 = ft_strjoin(ell.paths[i], "/");
-		tmp = (tmp2) ? ft_strjoin(tmp2, ell.args[0]) : NULL;
+		tmp = (tmp2) ? ft_strjoin(tmp2, ell.cmds->arg[0]) : NULL;
 		if (tmp && !access((const char*)tmp, X_OK))
 			return (tmp);
 		i += 1;
@@ -32,7 +32,7 @@ char		*build_path(t_sh ell)
 	return (NULL);
 }
 
-int			exec_cmd(t_sh ell, char *path)
+int			exec_cmd(t_sh ell, char *path, t_vect *cmd)
 {
 	int		status;
 	pid_t	cpid;
@@ -47,7 +47,7 @@ int			exec_cmd(t_sh ell, char *path)
 	}
 	else if (cpid == 0)
 	{
-		if (execve(path, ell.args, ell.env) == -1)
+		if (execve(path, cmd->arg, ell.env) == -1)
 		{
 			puterror("commande inconnue...\n");
 			exit(-1);
