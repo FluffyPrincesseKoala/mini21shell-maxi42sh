@@ -5,15 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+<<<<<<< HEAD
             "name": "(gdb) Lancer",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/minishell",
             "args": [],
+=======
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell",
+            "args": [
+                "<",
+                "input.txt",
+            ],
+>>>>>>> 6b6f0ec84c9214e7952d5dc53a77b2be8fc2363a
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
+<<<<<<< HEAD
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -30,7 +42,9 @@
             "target": "[PID]",
             "cwd": "/home/cylemair/work/mini21shell-maxi42sh",
             "valuesFormatting": "parseText"
+=======
+            "MIMode": "lldb"
+>>>>>>> 6b6f0ec84c9214e7952d5dc53a77b2be8fc2363a
         }
-
     ]
 }

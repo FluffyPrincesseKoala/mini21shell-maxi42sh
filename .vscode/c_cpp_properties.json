@@ -1,6 +1,15 @@
 {
     "configurations": [
         {
+            "name": "macOS",
+            "includePath": ["${workspaceFolder}/includes/**",
+                "${workspaceFolder}/libft/libft.h"],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "intelliSenseMode": "${default}"
+        },
+        {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/includes/*"
@@ -8,7 +17,6 @@
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
-            "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
         }
     ],
