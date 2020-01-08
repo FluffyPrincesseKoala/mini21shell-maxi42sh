@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/07 13:57:42 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/08 19:49:54 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ void	    builtin_setenv(t_sh *ell, t_vect *cmd)
 void	    builtin_cd(t_sh *ell, t_vect *cmd)
 {
 	char	*tmp;
+	char	*tmpbis;
 	int     i;
 
 	i = 0;
 	tmp = NULL;
+	tmpbis = NULL;
 	while (cmd->arg[i])
 		i++;
 	if (i > 1 && !ft_strcmp(cmd->arg[1], "-"))
 	{
 		tmp = ft_strdup(findenv((*ell).env, "OLDPWD"));
-		streplace((&cmd->arg[1]), &tmp);
+		tmpbis = ft_strjoin("/", tmp);
+		streplace((&cmd->arg[1]), &tmpbis);
 	}
 	else if (i == 1 && !cmd->arg[1])
 		cmd->arg[1] = ft_strdup(findenv((*ell).env, "HOME"));
@@ -71,12 +74,24 @@ void	    builtin_cd(t_sh *ell, t_vect *cmd)
 void    	builtin_echo(t_sh *ell, t_vect *cmd)
 {
 	int	    i;
+	int	    j;
 
 	i = 0;
 	(void)ell;
 	while (cmd->arg[++i])
 	{
-		ft_putstr(cmd->arg[i]);
+		if (i >= 2)
+			ft_putchar(' ');
+		j = -1;
+		while (cmd->arg[i][++j])
+		{
+			if ((cmd->arg[i][j] == '\\' || cmd->arg[i][j] == '\"'
+				|| cmd->arg[i][j] == '\'') && cmd->arg[i][j - 1] == '\\')
+				ft_putchar(cmd->arg[i][j]);
+			else if (cmd->arg[i][j] != '\\' && cmd->arg[i][j] != '\"'
+					&& cmd->arg[i][j] != '\'')
+				ft_putchar(cmd->arg[i][j]);
+		}
 	}
 	ft_putchar('\n');
 }

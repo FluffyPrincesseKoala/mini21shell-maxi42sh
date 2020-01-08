@@ -1,0 +1,4 @@
+echo "cd" ; cd minishell
+echo cd ; cd azfaqzsf
+echo pwd ; pwd
+echo exit ; exit

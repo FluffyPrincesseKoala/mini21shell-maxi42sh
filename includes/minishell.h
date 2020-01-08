@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/07 15:25:39 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:59:40 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@
 # include "../libft/get_next_line.h"
 # include "../libft/libft.h"
 
-# define RED 	"\033[1;31m"
-# define RESET	"\033[0m"
+# define RED 		"\033[1;31m"
+# define RESET		"\033[0m"
+# define NODIR		"Not a directory\n"
+# define DENY		"Permission denied\n"
+# define E_CHDIR	-1
 
 typedef struct  	s_vect
 {
@@ -36,55 +39,57 @@ typedef struct  	s_vect
 	struct s_vect	*next;
 }					t_vect;
 
-typedef struct  s_sh
+typedef struct  	s_sh
 {
-	char		**env;
-	char		*cmd;
-	char		**paths;
-	char		**args;
-	pid_t		*pid;
-	t_vect		*cmds;
-	char		*prompt;
+	char			**env;
+	char			*cmd;
+	char			**paths;
+	char			**args;
+	pid_t			*pid;
+	t_vect			*cmds;
+	char			*prompt;
 
-	char		**real_env;
-	char		*cmd_out;
-}				t_sh;
+	char			**real_env;
+	char			*cmd_out;
+}					t_sh;
 
-typedef struct  s_built
+typedef struct  	s_built
 {
-	void		(*f)(struct s_sh *, struct s_vect *);
-	char		*name;
-}				t_built;
+	void			(*f)(struct s_sh *, struct s_vect *);
+	char			*name;
+}					t_built;
 
-char        **copy_array(char **array);
-char		*findenv(char	**env, char *var);
-char		**delenv(char **env, char *var);
-char		**addenv(char **env, char *var);
-char		**change_key(char **env, char *var);
+char        		**copy_array(char **array);
+char				*findenv(char	**env, char *var);
+char				**delenv(char **env, char *var);
+char				**addenv(char **env, char *var);
+char				**change_key(char **env, char *var);
+char				**update_key(char **env, char *up, char *key, char *dest);
 
-char		*build_path(t_sh ell);
-int			exec_cmd(t_sh ell, char *path, t_vect *cmd);
-void   		read_stdin(t_sh ell);
-void    	change_dir(const char *path, t_sh *ell);
-int		    check_builtin(t_sh *ell, t_vect *cmd);
-int			get_var(t_vect **head, char **env);
-void		tilt(t_vect **head, t_sh ell);
+char				*build_path(t_sh ell);
+int					exec_cmd(t_sh ell, char *path, t_vect *cmd);
+void   				read_stdin(t_sh ell);
+void    			change_dir(const char *path, t_sh *ell);
+int		    		check_builtin(t_sh *ell, t_vect *cmd);
+void				get_var(t_vect **head, char **env);
+void				tilt(t_vect **head, t_sh ell);
 
-void		builtin_env(t_sh *ell, t_vect *cmd);
-void		builtin_unsetenv(t_sh *ell, t_vect *cmd);
-void		builtin_setenv(t_sh *ell, t_vect *cmd);
-void		builtin_cd(t_sh *ell, t_vect *cmd);
-void		builtin_echo(t_sh *ell, t_vect *cmd);
+void				builtin_env(t_sh *ell, t_vect *cmd);
+void				builtin_unsetenv(t_sh *ell, t_vect *cmd);
+void				builtin_setenv(t_sh *ell, t_vect *cmd);
+void				builtin_cd(t_sh *ell, t_vect *cmd);
+void				builtin_echo(t_sh *ell, t_vect *cmd);
 
-void		putab(char **array);
-void		puterror(char *error);
-int			array_len(char **array);
-void		streplace(char **s1, char **s2);
-void		free_array(char **array);
-void		free_vector(t_vect *head);
+void				putab(char **array);
+void				puterror(char *error);
+int					array_len(char **array);
+void				streplace(char **s1, char **s2);
+void				free_array(char **array);
+void				free_vector(t_vect *head);
 
-t_vect		*vect_new(char **arg);
-t_vect 		*vect_add(t_vect **head, t_vect *new);
-void		free_vector(t_vect *head);
+t_vect				*vect_new(char **arg);
+t_vect 				*vect_add(t_vect **head, t_vect *new);
+void				free_vector(t_vect *head);
+void				vect_print(t_vect *lst);
 
 #endif
