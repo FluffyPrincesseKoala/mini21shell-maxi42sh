@@ -6,16 +6,16 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:58:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/08 20:56:50 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:32:30 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char        **copy_array(char **array)
+char		**copy_array(char **array)
 {
-	char    **new;
-	int     i;
+	char	**new;
+	int		i;
 
 	i = 0;
 	while (array[i])
@@ -82,7 +82,7 @@ char		**addenv(char **env, char *var)
 	while (env[i])
 		i++;
 	if (!(new = malloc(sizeof(char *) * (i + 2))))
-		return	(NULL);
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{

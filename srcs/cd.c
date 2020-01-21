@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/08 20:53:26 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:45:35 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		is_file(const char *path)
 	return (S_ISREG(sb.st_mode));
 }
 
-void    		change_dir(const char *path, t_sh *ell)
+void			change_dir(const char *path, t_sh *ell)
 {
 	char		*cwd;
 	char		buff[4096 + 1];
@@ -52,6 +52,7 @@ void			tilt(t_vect **head, t_sh ell)
 	char		**tab;
 	int			i;
 
+	lst = NULL;
 	if (head)
 		lst = *head;
 	while (lst)
@@ -73,13 +74,14 @@ void			tilt(t_vect **head, t_sh ell)
 	}
 }
 
-void				get_var(t_vect **head, char **env)
+void			get_var(t_vect **head, char **env)
 {
 	t_vect		*lst;
 	char		*tmp;
 	char		*var;
 	int			i;
 
+	lst = NULL;
 	if (head)
 		lst = *head;
 	while (lst)

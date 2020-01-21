@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:18:06 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/08 20:58:43 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:34:50 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vect		*vect_new(char **arg)
 
 t_vect		*vect_add(t_vect **head, t_vect *new)
 {
-	t_vect  *tmp;
+	t_vect	*tmp;
 
 	if (head)
 	{

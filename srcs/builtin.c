@@ -6,32 +6,32 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/08 19:49:54 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:30:48 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	    builtin_env(t_sh *ell, t_vect *cmd)
+void		builtin_env(t_sh *ell, t_vect *cmd)
 {
 	(void)cmd;
 	putab((*ell).env);
 }
 
-void	    builtin_unsetenv(t_sh *ell, t_vect *cmd)
+void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
 {
 	(*ell).env = delenv((*ell).env, cmd->arg[1]);
 }
 
-void	    builtin_setenv(t_sh *ell, t_vect *cmd)
+void		builtin_setenv(t_sh *ell, t_vect *cmd)
 {
 	char	*tmp;
 	char	*tmpbis;
 	int		i;
 
 	i = 0;
-	tmp	= NULL;
-	tmpbis	= NULL;
+	tmp = NULL;
+	tmpbis = NULL;
 	while (cmd->arg[i])
 		i++;
 	if (i == 2)
@@ -48,11 +48,11 @@ void	    builtin_setenv(t_sh *ell, t_vect *cmd)
 	ft_strdel(&tmpbis);
 }
 
-void	    builtin_cd(t_sh *ell, t_vect *cmd)
+void		builtin_cd(t_sh *ell, t_vect *cmd)
 {
 	char	*tmp;
 	char	*tmpbis;
-	int     i;
+	int		i;
 
 	i = 0;
 	tmp = NULL;
@@ -71,10 +71,10 @@ void	    builtin_cd(t_sh *ell, t_vect *cmd)
 	ft_strdel(&tmp);
 }
 
-void    	builtin_echo(t_sh *ell, t_vect *cmd)
+void		builtin_echo(t_sh *ell, t_vect *cmd)
 {
-	int	    i;
-	int	    j;
+	int		i;
+	int		j;
 
 	i = 0;
 	(void)ell;
