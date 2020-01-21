@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 10:57:14 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:38:14 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void				builtin_echo(t_sh *ell, t_vect *cmd);
 void				putab(char **array);
 void				puterror(char *error);
 int					array_len(char **array);
+size_t				count_delim(char *str, int delim);
 void				streplace(char **s1, char **s2);
 char				*str_remove(char *str, char delim);
 void				free_array(char **array);

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:37:46 by cylemair          #+#    #+#             */
-/*   Updated: 2019/12/12 10:54:36 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:19:04 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		count_words(char const *s, char c)
 	int			count;
 
 	count = 0;
-	if (*s != c && *s)
+	if (*s && *s != c)
 	{
 		s++;
 		count++;

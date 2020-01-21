@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 11:32:37 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:12:54 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,16 @@ static void	format_stdin(t_sh *ell)
 
 	i = 0;
 	cmds = NULL;
-	printf("\nbefore {%s}\n", (*ell).cmd);
 	tab = ft_strsplit((*ell).cmd, ';');
-	printf("after\n");
 	while (tab[i])
 	{
 		args = ft_strsplit(tab[i], ' ');
-		putab(tab);
-		if (cmds != NULL)
+		if (cmds != NULL && ft_strlen(args[0]) != count_delim(args[0], ' '))
 		{
-			printf("lapin\n");
 			cmds = vect_add(&cmds, vect_new(args));
 		}
-		else
+		else if (args[0] && ft_strlen(args[0]) != count_delim(args[0], ' '))
 		{
-			printf("lap2\n");
 			cmds = vect_new(args);
 		}
 		free_array(args);
@@ -67,10 +62,7 @@ static int	browse_cmd(t_sh *ell)
 			ft_strdel(&tmp);
 		}
 		puterror((ret == -1) ? "commande inconnue...\n" : NULL);
-		if (ret == -2)
-			break;
-		else
-			lst = lst->next;
+		lst = (ret != -2) ? lst->next : lst;
 	}
 	if (ret == -2 && lst->next)
 		puterror("Il y a des tâches stoppées.\n");

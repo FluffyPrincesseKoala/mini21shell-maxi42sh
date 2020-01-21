@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:54:50 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 11:04:55 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:34:14 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void		putab(char **array)
 	}
 }
 
-int			count_delim(char *str, int delim)
+size_t		count_delim(char *str, int delim)
 {
 	int		i;
-	int		count;
+	size_t	count;
 
 	i = 0;
 	count = 0;
@@ -81,7 +81,7 @@ char		*str_remove(char *str, char delim)
 	char	*new;
 	int		i;
 	int		j;
-	int		count;
+	size_t	count;
 
 	new = NULL;
 	i = 0;

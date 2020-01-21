@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/16 17:09:44 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:25:36 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int			exec_cmd(t_sh ell, char *path, t_vect *cmd)
 	else if (cpid == 0)
 	{
 		if (execve(path, cmd->arg, ell.env) == -1)
-			exit(0);
 			return (-1);
 	}
 	else
