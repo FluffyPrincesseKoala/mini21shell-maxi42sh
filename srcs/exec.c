@@ -6,13 +6,13 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 14:25:36 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:24:38 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*build_path(t_sh ell)
+char		*build_path(t_sh ell, t_vect *lst)
 {
 	int		i;
 	char	*tmp;
@@ -24,7 +24,7 @@ char		*build_path(t_sh ell)
 	while (ell.paths[i])
 	{
 		tmp2 = ft_strjoin(ell.paths[i], "/");
-		tmp = (tmp2) ? ft_strjoin(tmp2, ell.cmds->arg[0]) : NULL;
+		tmp = (tmp2) ? ft_strjoin(tmp2, lst->arg[0]) : NULL;
 		if (tmp && !access((const char*)tmp, X_OK))
 			return (tmp);
 		i += 1;
@@ -47,12 +47,13 @@ int			exec_cmd(t_sh ell, char *path, t_vect *cmd)
 	}
 	else if (cpid == 0)
 	{
-		if (execve(path, cmd->arg, ell.env) == -1)
+		if (execve(path, cmd->arg, ell.env) < 0)
 			return (-1);
+		else
+			exit(0);
 	}
-	else
-		wait(&status);
-	return (0);
+	wait(&status);
+	return ((status < 0) ? -1 : 0);
 }
 
 static void	init(t_built *fct)

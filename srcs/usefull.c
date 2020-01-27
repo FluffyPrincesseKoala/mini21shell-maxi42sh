@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:54:50 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 14:34:14 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:33:32 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,19 @@ char		*str_remove(char *str, char delim)
 	}
 	new[j] = '\0';
 	return (new);
+}
+
+size_t		count_lst(t_vect *head)
+{
+	t_vect	*lst;
+	size_t	count;
+
+	count = 0;
+	lst = head;
+	while (lst)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 14:38:14 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:30:45 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char				**addenv(char **env, char *var);
 char				**change_key(char **env, char *var);
 char				**update_key(char **env, char *up, char *key, char *dest);
 
-char				*build_path(t_sh ell);
+char				*build_path(t_sh ell, t_vect *lst);
 int					exec_cmd(t_sh ell, char *path, t_vect *cmd);
 void				read_stdin(t_sh ell);
 void				change_dir(const char *path, t_sh *ell);
@@ -92,5 +92,6 @@ t_vect				*vect_new(char **arg);
 t_vect				*vect_add(t_vect **head, t_vect *new);
 void				free_vector(t_vect *head);
 void				vect_print(t_vect *lst);
+size_t				count_lst(t_vect *head);
 
 #endif

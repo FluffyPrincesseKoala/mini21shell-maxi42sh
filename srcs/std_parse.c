@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 16:12:54 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:34:01 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,18 @@ static int	browse_cmd(t_sh *ell)
 
 	lst = (*ell).cmds;
 	ret = 0;
-	while (lst && ret != -2)
+	while (ret != -2 && lst)
 	{
 		ret = 0;
 		if ((ret = check_builtin(&(*ell), lst)) == 0)
 		{
 			(*ell).paths = ft_strsplit(findenv((*ell).env, "PATH"), ':');
-			if ((tmp = build_path((*ell))))
+			if ((tmp = build_path((*ell), lst)))
 				ret = exec_cmd((*ell), tmp, lst);
-			else if (!tmp)
+			else if (!tmp && !access((const char*)lst->arg[0], X_OK))
 				ret = exec_cmd((*ell), lst->arg[0], lst);
+			else
+				ret = -1;
 			ft_strdel(&tmp);
 		}
 		puterror((ret == -1) ? "commande inconnue...\n" : NULL);
@@ -74,14 +76,17 @@ void		read_stdin(t_sh ell)
 	int		built;
 
 	built = 0;
-	while (1 && built != -2)
+	while (built != -2)
 	{
 		ft_putstr(ell.prompt);
 		get_next_line(0, &(ell.cmd));
 		if (ft_strcmp(ell.cmd, ""))
 		{
 			format_stdin(&ell);
-			built = browse_cmd(&ell);
+			if (count_delim(ell.cmd, ';') > count_lst(ell.cmds))
+				puterror("erreur de syntaxe\n");
+			else
+				built = browse_cmd(&ell);
 			free_vector(ell.cmds);
 		}
 		if (ell.cmd)

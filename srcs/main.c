@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:52:17 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/09 17:28:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/23 20:01:32 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int			main(int argc, char **argv, char **env)
 	ell.prompt = ft_strdup("&> ");
 	ell.env = env;
 	read_stdin(ell);
-	return (1);
+	return (0);
 }
