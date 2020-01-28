@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/23 17:34:01 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:06:58 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ static void	format_stdin(t_sh *ell)
 	while (tab[i])
 	{
 		args = ft_strsplit(tab[i], ' ');
-		if (cmds != NULL && ft_strlen(args[0]) != count_delim(args[0], ' '))
+		if (cmds != NULL)
 		{
-			cmds = vect_add(&cmds, vect_new(args));
+			vect_add(&cmds, vect_new(args));
 		}
-		else if (args[0] && ft_strlen(args[0]) != count_delim(args[0], ' '))
+		else if (args[0])
 		{
 			cmds = vect_new(args);
 		}

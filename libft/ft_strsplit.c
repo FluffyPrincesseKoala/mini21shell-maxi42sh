@@ -6,72 +6,70 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:37:46 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/21 16:19:04 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:00:25 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
+#include <string.h>
 
-static int		ft_copy_str(char const *s, char c, size_t size_a, char **ret)
+static size_t	ft_strclen(const char *str, char c)
 {
-	size_t		i;
-	size_t		len_str;
+	size_t	i;
 
 	i = 0;
-	len_str = 0;
-	while (i < size_a)
-	{
-		if (*s != c && *s != '\0')
-			len_str++;
-		else if (len_str)
-		{
-			if ((ret[i] = (char *)malloc(sizeof(**ret) * len_str + 1)) == NULL)
-				return (1);
-			ft_strncpy(ret[i], s - len_str, len_str);
-			ret[i++][len_str] = '\0';
-			len_str = 0;
-		}
-		s++;
-	}
-	return (0);
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }
 
-static int		count_words(char const *s, char c)
+static size_t	ft_count_words(char const *s, char c)
 {
-	int			count;
+	size_t		i;
+	size_t		words;
 
-	count = 0;
-	if (*s && *s != c)
+	i = 0;
+	words = 0;
+	while (s[i])
 	{
-		s++;
-		count++;
-	}
-	while (*s)
-	{
-		while (*s == c)
+		if (s[i] != c)
 		{
-			s++;
-			if (*s != c && *s)
-				count++;
+			words++;
+			while (s[i] && s[i] != c)
+				i++;
 		}
-		s++;
+		else
+			i++;
 	}
-	return (count);
+	return (words);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char		**ret;
-	size_t		size_a;
+	size_t		words;
+	char		**tab;
+	size_t		i;
+	size_t		j;
 
-	if (s == NULL)
+	if (!s)
 		return (NULL);
-	size_a = count_words(s, c);
-	ret = (char **)malloc(sizeof(*ret) * (size_a + 1));
-	if (ret == NULL)
+	words = ft_count_words(s, c);
+	if (!(tab = (char**)malloc(sizeof(char*) * (words + 1))))
 		return (NULL);
-	if (ft_copy_str(s, c, size_a, ret))
-		return (NULL);
-	ret[size_a] = NULL;
-	return (ret);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			if (!(tab[j++] = ft_strndup(s + i, ft_strclen(s + i, c))))
+				return (NULL);
+			i += ft_strclen(s + i, c);
+		}
+		else
+			i++;
+	}
+	tab[j] = NULL;
+	return (tab);
 }
