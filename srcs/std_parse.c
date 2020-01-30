@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/28 12:06:58 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:12:54 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	browse_cmd(t_sh *ell)
 				ret = -1;
 			ft_strdel(&tmp);
 		}
+		printf("OUT\n");
 		puterror((ret == -1) ? "commande inconnue...\n" : NULL);
 		lst = (ret != -2) ? lst->next : lst;
 	}
@@ -87,7 +88,7 @@ void		read_stdin(t_sh ell)
 				puterror("erreur de syntaxe\n");
 			else
 				built = browse_cmd(&ell);
-			free_vector(ell.cmds);
+			//free_vector(ell.cmds);
 		}
 		if (ell.cmd)
 			ft_strdel(&(ell.cmd));

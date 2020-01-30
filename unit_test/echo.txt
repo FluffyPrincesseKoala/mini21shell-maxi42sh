@@ -1,0 +1,3 @@
+echo echo \'lapin\' ; echo lapin
+echo echo \'\"\"\' ; echo '""'
+exit

@@ -1,4 +1,7 @@
-echo "cd" ; cd minishell
-echo cd ; cd azfaqzsf
-echo pwd ; pwd
-echo exit ; exit
+echo "cd" ; cd
+echo "pwd" ; pwd
+echo "cd -" ; cd -
+echo "pwd" ; pwd
+echo "cd" ; cd azfaqzsf
+echo "pwd" ; pwd
+exit
