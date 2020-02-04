@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/30 17:12:54 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:14:26 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,21 @@ static void	format_stdin(t_sh *ell)
 	t_vect	*cmds;
 	char	**tab;
 	char	**args;
+    char    *line;
 	int		i;
 
 	i = 0;
 	cmds = NULL;
-	tab = ft_strsplit((*ell).cmd, ';');
+	line = NULL;
+    line = replace_delim((*ell).cmd, '\t', ' ');
+	tab = ft_strsplit((line) ? line : (*ell).cmd, ';');
 	while (tab[i])
 	{
 		args = ft_strsplit(tab[i], ' ');
 		if (cmds != NULL)
-		{
 			vect_add(&cmds, vect_new(args));
-		}
 		else if (args[0])
-		{
 			cmds = vect_new(args);
-		}
 		free_array(args);
 		i++;
 	}
@@ -54,7 +53,6 @@ static int	browse_cmd(t_sh *ell)
 		ret = 0;
 		if ((ret = check_builtin(&(*ell), lst)) == 0)
 		{
-			(*ell).paths = ft_strsplit(findenv((*ell).env, "PATH"), ':');
 			if ((tmp = build_path((*ell), lst)))
 				ret = exec_cmd((*ell), tmp, lst);
 			else if (!tmp && !access((const char*)lst->arg[0], X_OK))

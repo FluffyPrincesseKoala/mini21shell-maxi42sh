@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/23 17:24:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:15:40 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ char		*build_path(t_sh ell, t_vect *lst)
 	int		i;
 	char	*tmp;
 	char	*tmp2;
+    char    **paths;
 
 	i = 0;
 	tmp = NULL;
 	tmp2 = NULL;
-	while (ell.paths[i])
+    paths = ft_strsplit(findenv(ell.env, "PATH"), ':');
+	while (paths && paths[i])
 	{
-		tmp2 = ft_strjoin(ell.paths[i], "/");
+		tmp2 = ft_strjoin(paths[i], "/");
 		tmp = (tmp2) ? ft_strjoin(tmp2, lst->arg[0]) : NULL;
 		if (tmp && !access((const char*)tmp, X_OK))
 			return (tmp);

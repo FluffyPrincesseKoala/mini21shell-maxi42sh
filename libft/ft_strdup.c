@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cylemair <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:32:46 by cylemair          #+#    #+#             */
-/*   Updated: 2018/12/19 16:32:47 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:59:20 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char		*ft_strdup(const char *src)
 {
 	char	*str;
 	int		i;
+
 
 	if (!(str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1))))
 		return (NULL);

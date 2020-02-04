@@ -6,13 +6,13 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/30 17:04:12 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:07:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	lendelim(char *str, char delim, int start)
+int	lendelim(char *str, char delim, int start)
 {
 	int		i;
 
@@ -36,15 +36,18 @@ char		**change_key(char **env, char *var)
 		return (env);
 	while (env[i])
 	{
-		if (!ft_strncmp(env[i], var, key_len))
+		if (key_len && !ft_strncmp(env[i], var, key_len))
+        {
+            key_len = 0;
 			nenv[j] = ft_strdup(var);
-		else
+		}
+        else
 			nenv[j] = ft_strdup(env[i]);
 		i++;
 		j++;
 	}
 	nenv[j] = NULL;
-	return (nenv ? nenv : addenv(env, var));
+	return (!key_len ? nenv : addenv(env, var));
 }
 
 char		**update_key(char **env, char *up, char *key, char *dest)

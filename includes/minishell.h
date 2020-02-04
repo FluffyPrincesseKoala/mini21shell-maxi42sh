@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/28 11:06:33 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:19:18 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int					array_len(char **array);
 size_t				count_delim(char *str, int delim);
 void				streplace(char **s1, char **s2);
 char				*str_remove(char *str, char delim);
+char        *replace_delim(char *str, char delim, char new);
+int  array_total_len(char **array);
 void				free_array(char **array);
 void				free_vector(t_vect *head);
 

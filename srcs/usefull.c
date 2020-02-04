@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:54:50 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/23 17:33:32 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:20:58 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ char		*str_remove(char *str, char delim)
 	new = NULL;
 	i = 0;
 	j = 0;
-	if (!(count = count_delim(str, delim)) && str)
-		return (str);
-	if (!(new = malloc(sizeof(char) * (count + 1))))
+	if (!(count = count_delim(str, delim)))
+		return (NULL);
+	if (!(new = malloc(sizeof(char) * ((ft_strlen(str) - count) + 1))))
 		return (NULL);
 	while (str[i])
 	{
@@ -97,10 +97,74 @@ char		*str_remove(char *str, char delim)
 			new[j] = str[i];
 			j++;
 		}
-		i++;
+        if ((count = count_delim(&str[i], delim)))
+        {
+            while (str[i] == delim && str[i])
+        		i++;
+            if (str[i] && new[j])
+            {
+                new[j] = ' ';
+                j++;
+            }
+        }
+        i++;
 	}
 	new[j] = '\0';
+    ft_putstr(new);
 	return (new);
+}
+
+
+int  array_total_len(char **array)
+{
+    int     i;
+    int     len;
+
+    i = 0;
+    len = 0;
+    while (array[i])
+    {
+        len += ft_strlen(array[i]);
+        i++;
+    }
+    return (len);
+}
+
+char        *replace_delim(char *str, char delim, char new)
+{
+    char    *ret;
+    char    **tmp;
+    int     i;
+    int     j;
+    int     k;
+
+    j = 0;
+    i = 0;
+    tmp = ft_strsplit(str, delim);
+    while (tmp[i])
+        i++;
+    if (!(ret = malloc(sizeof(char) * (array_total_len(tmp) + i))))
+        return (NULL);
+    i = 0;
+    while (tmp[i])
+    {
+        k = 0;
+        while (tmp[i][k])
+        {
+            ret[j] = tmp[i][k];
+            j++;
+            k++;
+        }
+        i++;
+        if (tmp[i])
+        {
+            ret[j] = new;
+            j++;
+        }
+    }
+    ret[j] = '\0';
+    free_array(tmp);
+    return (ret);
 }
 
 size_t		count_lst(t_vect *head)
