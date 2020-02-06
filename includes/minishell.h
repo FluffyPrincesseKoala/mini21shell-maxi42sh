@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/04 16:19:18 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:43:40 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,9 @@ typedef struct		s_sh
 {
 	char			**env;
 	char			*cmd;
-	char			**paths;
 	char			**args;
-	pid_t			*pid;
 	t_vect			*cmds;
 	char			*prompt;
-	char			**real_env;
-	char			*cmd_out;
 }					t_sh;
 
 typedef struct		s_built
@@ -85,15 +81,15 @@ int					array_len(char **array);
 size_t				count_delim(char *str, int delim);
 void				streplace(char **s1, char **s2);
 char				*str_remove(char *str, char delim);
-char        *replace_delim(char *str, char delim, char new);
-int  array_total_len(char **array);
+char        		*replace_delim(char *str, char delim, char new);
+int					array_total_len(char **array);
 void				free_array(char **array);
-void				free_vector(t_vect *head);
 
 t_vect				*vect_new(char **arg);
 t_vect				*vect_add(t_vect **head, t_vect *new);
-void				free_vector(t_vect *head);
+void				free_vector(t_vect **head);
 void				vect_print(t_vect *lst);
 size_t				count_lst(t_vect *head);
 
 #endif
+//change setenv to enable '=' method

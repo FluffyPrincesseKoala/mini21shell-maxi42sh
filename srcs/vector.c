@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:18:06 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/28 11:15:17 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:13:31 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,22 @@ t_vect		*vect_add(t_vect **head, t_vect *new)
 	return (*head);
 }
 
-void		free_vector(t_vect *head)
+void		free_vector(t_vect **head)
 {
-	if (head && head->next)
-		free_vector(head->next);
-	free_array(head->arg);
-	free(head);
+	t_vect	*lst;
+	t_vect	*lst_next;
+
+	if (head)
+	{
+		lst = *head;
+		while (lst)
+		{
+			free_array(lst->arg);
+			lst_next = lst->next;
+			free(lst);
+			lst = lst_next;
+		}
+	}
 }
 
 void		vect_print(t_vect *lst)

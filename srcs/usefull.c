@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:54:50 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/04 16:20:58 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:14:39 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ void		free_array(char **array)
 	free(array);
 }
 
-int			array_len(char **array)
-{
-	int		i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
 void		puterror(char *error)
 {
 	ft_putstr_fd(RED, 2);
@@ -60,124 +50,60 @@ void		putab(char **array)
 	}
 }
 
-size_t		count_delim(char *str, int delim)
-{
-	int		i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	while (str && str[i])
-	{
-		if (str[i] == delim)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-char		*str_remove(char *str, char delim)
-{
-	char	*new;
-	int		i;
-	int		j;
-	size_t	count;
-
-	new = NULL;
-	i = 0;
-	j = 0;
-	if (!(count = count_delim(str, delim)))
-		return (NULL);
-	if (!(new = malloc(sizeof(char) * ((ft_strlen(str) - count) + 1))))
-		return (NULL);
-	while (str[i])
-	{
-		if (str[i] != delim)
-		{
-			new[j] = str[i];
-			j++;
-		}
-        if ((count = count_delim(&str[i], delim)))
-        {
-            while (str[i] == delim && str[i])
-        		i++;
-            if (str[i] && new[j])
-            {
-                new[j] = ' ';
-                j++;
-            }
-        }
-        i++;
-	}
-	new[j] = '\0';
-    ft_putstr(new);
-	return (new);
-}
-
-
-int  array_total_len(char **array)
-{
-    int     i;
-    int     len;
-
-    i = 0;
-    len = 0;
-    while (array[i])
-    {
-        len += ft_strlen(array[i]);
-        i++;
-    }
-    return (len);
-}
-
 char        *replace_delim(char *str, char delim, char new)
 {
     char    *ret;
     char    **tmp;
-    int     i;
-    int     j;
-    int     k;
+    int     i[3];
 
-    j = 0;
-    i = 0;
+    i[1] = 0;
+    i[0] = 0;
     tmp = ft_strsplit(str, delim);
-    while (tmp[i])
-        i++;
-    if (!(ret = malloc(sizeof(char) * (array_total_len(tmp) + i))))
+    if (!(ret = malloc(sizeof(char) * (array_total_len(tmp) + array_len(tmp)))))
         return (NULL);
-    i = 0;
-    while (tmp[i])
+    while (tmp[i[0]])
     {
-        k = 0;
-        while (tmp[i][k])
+        i[2] = 0;
+        while (tmp[i[0]][i[2]])
         {
-            ret[j] = tmp[i][k];
-            j++;
-            k++;
+            ret[i[1]] = tmp[i[0]][i[2]];
+            i[1]++;
+            i[2]++;
         }
-        i++;
-        if (tmp[i])
-        {
-            ret[j] = new;
-            j++;
-        }
+        i[0]++;
+        if (tmp[i[0]])
+		{
+		    ret[i[1]] = new;
+			i[1]++;
+		}
     }
-    ret[j] = '\0';
+    ret[i[1]] = '\0';
     free_array(tmp);
     return (ret);
 }
 
-size_t		count_lst(t_vect *head)
-{
-	t_vect	*lst;
-	size_t	count;
+// char        *replace_delim(char *str, char delim, char new)
+// {
+//     char    *ret;
+//     char    **tmp;
+//     int     i;
 
-	count = 0;
-	lst = head;
-	while (lst)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
-}
+//     i = 0;
+//     tmp = ft_strsplit(str, delim);
+//     if (!(ret = malloc(sizeof(char) * (array_total_len(tmp) + array_len(tmp)))))
+//         return (NULL);
+//     while (tmp[i])
+//     {
+// 		printf("tmp[%d] [%s]\n", i, tmp[i]);
+// 		if (tmp[i])
+// 			ret = ft_strcat(ret, tmp[i]);
+//         i++;
+//         if (new && i <= array_len(tmp))
+//             ret[ft_strlen(ret)] = new;
+//     }
+//     free_array(tmp);
+// 	for (int l = 0 ; ret[l] ; l++) {
+// 		printf("ret[%d] {%c}\n", l, ret[l]);
+// 	}
+//     return (ret);
+// }

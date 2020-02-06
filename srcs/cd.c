@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/30 16:59:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:01:43 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,17 @@ void			change_dir(const char *path, t_sh *ell)
 	char		*cwd;
 	char		buff[4096 + 1];
 
-	printf("start\t[%s]\n", path);
 	if (!access(path, F_OK))
 	{
-		printf("\033[1;31mpath ok\033[0m\n");
 		if (chdir(path) == E_CHDIR)
 		{
-			printf("\033[1;31mchdir ok\033[0m\n");
 			puterror(is_file(path) ? NODIR : DENY);
 		}
 		else
 		{
-			printf("\033[1;31melse ok\033[0m\n");
 			if (!(cwd = getcwd(buff, 4096)))
 				puterror("Permission denied\n");
-			printf("\033[1;31mgetcwd ok\033[0m\n");
 			(*ell).env = update_key((*ell).env, "PWD=", cwd, "OLDPWD=");
-			printf("\033[1;31mpwd updated to %s\033[0m\n", findenv((*ell).env, "PWD"));
 		}
 	}
 	else
