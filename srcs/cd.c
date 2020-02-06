@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/04 17:01:43 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/06 19:25:54 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void			change_dir(const char *path, t_sh *ell)
 	if (!access(path, F_OK))
 	{
 		if (chdir(path) == E_CHDIR)
-		{
 			puterror(is_file(path) ? NODIR : DENY);
-		}
 		else
 		{
 			if (!(cwd = getcwd(buff, 4096)))
