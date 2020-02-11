@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/06 16:54:12 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:24:08 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	format_stdin(t_sh *ell)
 	t_vect	*cmds;
 	char	**tab;
 	char	**args;
-    char    *line;
+	char	*line;
 	int		i;
 
 	i = 0;
 	cmds = NULL;
 	line = NULL;
-    line = replace_delim((*ell).cmd, '\t', ' ');
+	line = replace_delim((*ell).cmd, '\t', ' ');
 	tab = ft_strsplit((line) ? line : (*ell).cmd, ';');
 	while (tab[i])
 	{

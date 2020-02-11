@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:22:37 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/06 20:05:51 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:34:30 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ int			array_len(char **array)
 	return (i);
 }
 
-int  array_total_len(char **array)
+int			array_total_len(char **array)
 {
-    int     i;
-    int     len;
+	int		i;
+	int		len;
 
-    i = 0;
-    len = 0;
-    while (array[i])
-    {
-        len += ft_strlen(array[i]);
-        i++;
-    }
-    return (len);
+	i = 0;
+	len = 0;
+	while (array[i])
+	{
+		len += ft_strlen(array[i]);
+		i++;
+	}
+	return (len);
 }
 
 size_t		count_lst(t_vect *head)

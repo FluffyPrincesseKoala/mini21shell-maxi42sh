@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/06 16:00:42 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:32:17 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		builtin_echo(t_sh *ell, t_vect *cmd)
 		{
 			if ((cmd->arg[i][j] == '\\' || cmd->arg[i][j] == '\"'
 				|| cmd->arg[i][j] == '\'')
-                && (j && cmd->arg[i][j - 1] == '\\'))
+				&& (j && cmd->arg[i][j - 1] == '\\'))
 				ft_putchar(cmd->arg[i][j]);
 			else if (cmd->arg[i][j] != '\\' && cmd->arg[i][j] != '\"'
 					&& cmd->arg[i][j] != '\'')

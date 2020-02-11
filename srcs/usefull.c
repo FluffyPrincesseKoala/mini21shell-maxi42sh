@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:54:50 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/06 20:05:27 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:49:33 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,42 @@ void		putab(char **array)
 	}
 }
 
-static char *stracat(char **tmp, char *ret, int *i)
+static char	*stracat(char **tmp, char *ret, int *i)
 {
-    while (tmp[i[0]][i[2]])
-    {
-        ret[i[1]] = tmp[i[0]][i[2]];
-        i[1]++;
-        i[2]++;
-    }
-    return (ret);
+	while (tmp[i[0]][i[2]])
+	{
+		ret[i[1]] = tmp[i[0]][i[2]];
+		i[1]++;
+		i[2]++;
+	}
+	return (ret);
 }
 
-char        *replace_delim(char *str, char delim, char new)
+char		*replace_delim(char *str, char delim, char new)
 {
-    char    *ret;
-    char    **tmp;
-    int     i[3];
+	char	*ret;
+	char	**tmp;
+	size_t	len;
+	int		i[3];
 
-    i[1] = 0;
-    i[0] = 0;
-    tmp = ft_strsplit(str, delim);
-    if (!(ret = malloc(sizeof(char) * (CONCAT_LEN(tmp) + 1))))
-        return (NULL);
-    while (tmp[i[0]])
-    {
-        i[2] = 0;
-        ret = (tmp[i[0]][i[2]]) ? stracat(tmp, ret, i) : ret;
-        i[0]++;
-        if (tmp[i[0]])
+	i[1] = 0;
+	i[0] = 0;
+	tmp = ft_strsplit(str, delim);
+	len = array_total_len(tmp) + array_len(tmp);
+	if (!(ret = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (tmp[i[0]])
+	{
+		i[2] = 0;
+		ret = (tmp[i[0]][i[2]]) ? stracat(tmp, ret, i) : ret;
+		i[0]++;
+		if (tmp[i[0]])
 		{
-		    ret[i[1]] = new;
+			ret[i[1]] = new;
 			i[1]++;
 		}
-    }
-    ret[i[1]] = '\0';
-    free_array(tmp);
-    return (ret);
+	}
+	ret[i[1]] = '\0';
+	free_array(tmp);
+	return (ret);
 }
