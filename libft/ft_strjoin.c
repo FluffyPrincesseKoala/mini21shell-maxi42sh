@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cylemair <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:33:27 by cylemair          #+#    #+#             */
-/*   Updated: 2018/12/19 16:33:28 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:02:14 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	while (s2 && s2[j])
 		new[i++] = s2[j++];
 	new[i] = '\0';
+//     printf("len of \"%s\" = %d\n", new, i);
 	return (new);
 }

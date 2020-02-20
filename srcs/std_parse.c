@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:24:08 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:36:33 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	format_stdin(t_sh *ell)
 		free_array(args);
 		i++;
 	}
+    free_array(tab);
+    ft_strdel(&line);
 	get_var(&cmds, (*ell).env);
 	tilt(&cmds, *ell);
 	(*ell).cmds = cmds;

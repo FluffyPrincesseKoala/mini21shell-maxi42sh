@@ -6,11 +6,12 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:28:04 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:46:31 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 char		*build_path(t_sh ell, t_vect *lst)
 {
@@ -28,9 +29,16 @@ char		*build_path(t_sh ell, t_vect *lst)
 		tmp2 = ft_strjoin(paths[i], "/");
 		tmp = (tmp2) ? ft_strjoin(tmp2, lst->arg[0]) : NULL;
 		if (tmp && !access((const char*)tmp, X_OK))
+        {
+            ft_strdel(&tmp2);
+            free_array(paths);
 			return (tmp);
-		i += 1;
+		}
+        i += 1;
 	}
+    ft_strdel(&tmp);
+    ft_strdel(&tmp2);
+    free_array(paths);
 	return (NULL);
 }
 
@@ -52,7 +60,17 @@ int			exec_cmd(t_sh ell, char *path, t_vect *cmd)
 		if (execve(path, cmd->arg, ell.env) < 0)
 			return (-1);
 		else
+        {
+            if (ell.env)
+                ft_putstr("env\n");
+            if (ell.cmd)
+                ft_putstr("cmd\n");
+            if (ell.args)
+                ft_putstr("args\n");
+            if (ell.cmds)
+                ft_putstr("cmds\n");
 			exit(0);
+        }
 	}
 	wait(&status);
 	return ((status < 0) ? -1 : 0);

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:28:50 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:02:16 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		**change_key(char **env, char *var)
 	i = 0;
 	j = 0;
 	key_len = lendelim(var, '=', 0);
-	if (!(nenv = malloc(sizeof(char *) * (array_len(env) + 1))))
+	if (!(nenv = (char**)malloc(sizeof(char *) * (array_len(env) + 1))))
 		return (env);
 	while (env[i])
 	{
@@ -55,6 +55,7 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 	char	*old;
 	char	*tmp;
 	char	*new;
+    char    **tab;
 
 	if (up && key)
 	{
@@ -62,7 +63,7 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 		{
 			tmp = findenv(env, up);
 			old = ft_strjoin(dest, tmp);
-			env = change_key(env, old);
+			tab = change_key(env, old);
 		}
 		new = ft_strjoin(up, key);
 		env = change_key(env, new);
