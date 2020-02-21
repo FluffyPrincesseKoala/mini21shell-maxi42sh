@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/21 00:01:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/21 21:39:27 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
     char    **tab;
 
 	tab = delenv((*ell).env, cmd->arg[1]);
-    if ((*ell).env != (*ell).venv)
+    //printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
+	if ((*ell).env != (*ell).venv)
         free_array((*ell).env);
-    printf("tab:%p | env:%p\n", tab, (*ell).env);
+	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     (*ell).env = tab;
-    printf("NEW ENV:%p\n", (*ell).env);
+    //printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
 }
 
 void		builtin_setenv(t_sh *ell, t_vect *cmd)
@@ -51,10 +52,15 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 	}
 	else
 		return ;
+	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     tab = change_key((*ell).env, tmp);
     if ((*ell).env != (*ell).venv)
+	{
+		//printf("EXterminate\n");
         free_array((*ell).env);
+	}
     (*ell).env = tab;
+	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     ft_strdel(&tmp);
 	ft_strdel(&tmpbis);
 }

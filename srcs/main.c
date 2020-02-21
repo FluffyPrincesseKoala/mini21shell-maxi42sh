@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:52:17 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/20 23:46:50 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/21 21:39:27 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			main(int argc, char **argv, char **env)
 	ell.prompt = ft_strdup("\e[36m&> \033[0m");
 	ell.env = env;
 	ell.venv = env;
+	//printf("venv {%p} | env{%p}\n", ell.venv, ell.env);
 	read_stdin(ell);
     if (ell.args)
         free_array(ell.args);
