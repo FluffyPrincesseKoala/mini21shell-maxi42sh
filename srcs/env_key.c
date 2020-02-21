@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/18 15:02:16 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:47:34 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ char		**change_key(char **env, char *var)
 		j++;
 	}
 	nenv[j] = NULL;
-	return (!key_len ? nenv : addenv(env, var));
+    if (key_len)
+    {
+        free_array(nenv);
+        return (addenv(env, var));
+    }
+	return (nenv);
 }
 
 char		**update_key(char **env, char *up, char *key, char *dest)
@@ -55,7 +60,7 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 	char	*old;
 	char	*tmp;
 	char	*new;
-    char    **tab;
+    char    **tab = NULL;
 
 	if (up && key)
 	{
@@ -66,8 +71,9 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 			tab = change_key(env, old);
 		}
 		new = ft_strjoin(up, key);
-		env = change_key(env, new);
-		ft_strdel(&new);
+		env = change_key((tab) ? tab : env, new);
+        free_array(tab);
+        ft_strdel(&new);
 		ft_strdel(&old);
 	}
 	return (env);

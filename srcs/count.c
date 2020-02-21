@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:22:37 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:34:30 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/20 23:57:34 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		free_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		ft_strdel(&array[i]);
+	    ft_strdel(&array[i]);
 		i++;
 	}
 	free(array);

@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:48:58 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:32:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_vect
 typedef struct			s_sh
 {
 	char				**env;
+	char				**venv;
 	char				*cmd;
 	char				**args;
 	t_vect				*cmds;

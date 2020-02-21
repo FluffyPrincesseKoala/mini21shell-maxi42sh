@@ -1,0 +1,3 @@
+ls ; echo test
+ls ; echo lawl
+exit

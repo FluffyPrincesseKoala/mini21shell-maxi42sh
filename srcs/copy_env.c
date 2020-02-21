@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:58:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/01/09 17:32:30 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/20 23:47:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char		*findenv(char **env, char *var)
 	i = 0;
 	while (env && env[i])
 	{
+        printf("env:%p | var:%p", env[i], var);
 		if (!ft_strncmp(env[i], var, ft_strlen(var)))
 			return (*(env + i) + ft_strlen(var) + 1);
 		i += 1;
@@ -70,7 +71,7 @@ char		**delenv(char **env, char *var)
 		i++;
 	}
 	new[j] = NULL;
-	return (check ? new : env);
+	return (new);
 }
 
 char		**addenv(char **env, char *var)

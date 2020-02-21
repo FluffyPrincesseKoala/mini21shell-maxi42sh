@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/11 16:32:17 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/21 00:01:38 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,21 @@ void		builtin_env(t_sh *ell, t_vect *cmd)
 
 void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
 {
-	(*ell).env = delenv((*ell).env, cmd->arg[1]);
+    char    **tab;
+
+	tab = delenv((*ell).env, cmd->arg[1]);
+    if ((*ell).env != (*ell).venv)
+        free_array((*ell).env);
+    printf("tab:%p | env:%p\n", tab, (*ell).env);
+    (*ell).env = tab;
+    printf("NEW ENV:%p\n", (*ell).env);
 }
 
 void		builtin_setenv(t_sh *ell, t_vect *cmd)
 {
 	char	*tmp;
 	char	*tmpbis;
+    char    **tab;
 	int		i;
 
 	i = 0;
@@ -43,8 +51,11 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 	}
 	else
 		return ;
-	(*ell).env = change_key((*ell).env, tmp);
-	ft_strdel(&tmp);
+    tab = change_key((*ell).env, tmp);
+    if ((*ell).env != (*ell).venv)
+        free_array((*ell).env);
+    (*ell).env = tab;
+    ft_strdel(&tmp);
 	ft_strdel(&tmpbis);
 }
 
@@ -64,12 +75,17 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
 		tmp = ft_strdup(findenv((*ell).env, "OLDPWD"));
 		tmpbis = ft_strjoin("/", tmp);
 		streplace((&cmd->arg[1]), &tmpbis);
+	    ft_strdel(&tmp);
+	    ft_strdel(&tmpbis);
 	}
 	if (i == 1)
-		change_dir(findenv((*ell).env, "HOME"), ell);
-	else
+    {
+        tmp = ft_strdup(findenv((*ell).env, "HOME"));
+		change_dir(tmp, ell);
+	    ft_strdel(&tmp);
+	}
+    else
 		change_dir(cmd->arg[1], ell);
-	ft_strdel(&tmp);
 }
 
 void		builtin_echo(t_sh *ell, t_vect *cmd)

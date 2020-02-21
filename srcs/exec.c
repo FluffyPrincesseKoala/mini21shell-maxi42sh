@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/18 16:46:31 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:18:04 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char		*build_path(t_sh ell, t_vect *lst)
             free_array(paths);
 			return (tmp);
 		}
+        ft_strdel(&tmp);
+        ft_strdel(&tmp2);
         i += 1;
 	}
     ft_strdel(&tmp);
