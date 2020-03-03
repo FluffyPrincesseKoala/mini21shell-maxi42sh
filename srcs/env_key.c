@@ -6,21 +6,11 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/20 20:47:34 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:52:35 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int			lendelim(char *str, char delim, int start)
-{
-	int		i;
-
-	i = start;
-	while (str && str[i] && str[i] != delim)
-		i++;
-	return (i);
-}
 
 char		**change_key(char **env, char *var)
 {

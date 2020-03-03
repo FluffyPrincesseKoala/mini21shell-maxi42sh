@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/21 21:39:27 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:52:30 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
     char    **tab;
 
 	tab = delenv((*ell).env, cmd->arg[1]);
-    //printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
-	if ((*ell).env != (*ell).venv)
+	if ((*ell).env != (*ell).venv && (*ell).env != tab)
         free_array((*ell).env);
-	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     (*ell).env = tab;
-    //printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
 }
 
 void		builtin_setenv(t_sh *ell, t_vect *cmd)
@@ -52,15 +49,10 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 	}
 	else
 		return ;
-	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     tab = change_key((*ell).env, tmp);
     if ((*ell).env != (*ell).venv)
-	{
-		//printf("EXterminate\n");
         free_array((*ell).env);
-	}
     (*ell).env = tab;
-	//printf("env {%p} | *env{%p}\n", (*ell).env, *(*ell).env);
     ft_strdel(&tmp);
 	ft_strdel(&tmpbis);
 }
@@ -78,7 +70,7 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
 		i++;
 	if (i > 1 && !ft_strcmp(cmd->arg[1], "-"))
 	{
-		tmp = ft_strdup(findenv((*ell).env, "OLDPWD"));
+		tmp = ft_strdup(findenv((*ell).env, "OLDPWD="));
 		tmpbis = ft_strjoin("/", tmp);
 		streplace((&cmd->arg[1]), &tmpbis);
 	    ft_strdel(&tmp);
@@ -86,7 +78,7 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
 	}
 	if (i == 1)
     {
-        tmp = ft_strdup(findenv((*ell).env, "HOME"));
+        tmp = ft_strdup(findenv((*ell).env, "HOME="));
 		change_dir(tmp, ell);
 	    ft_strdel(&tmp);
 	}

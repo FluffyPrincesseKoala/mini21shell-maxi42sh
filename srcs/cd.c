@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/20 19:57:47 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:04:23 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			tilt(t_vect **head, t_sh ell)
 			if (ft_strchr(lst->arg[i], '~'))
 			{
 				tab = ft_strsplit(lst->arg[i], '~');
-				map = ft_strjoin(tab[0], findenv(ell.env, "HOME"));
+				map = ft_strjoin(tab[0], findenv(ell.env, "HOME="));
 				ft_strdel(&lst->arg[i]);
 				lst->arg[i] = ft_strjoin(map, tab[0]);
 				ft_strdel(&map);
@@ -91,11 +91,16 @@ void			get_var(t_vect **head, char **env)
 		{
 			if (lst->arg[i] && lst->arg[i][0] == '$')
 			{
-				var = ft_strdup(&lst->arg[i][1]);
+                int k = 0;
+                while (lst->arg[i][k] && lst->arg[i][k] != ':')
+                    k++;
+				var = ft_strndup(&lst->arg[i][1], k - 1);
 				tmp = findenv(env, var);
+                ft_strdel(&var);
+                var = ft_strjoin(tmp, &lst->arg[i][k]);
 				ft_strdel(&lst->arg[i]);
-				ft_strdel(&var);
-				lst->arg[i] = ft_strdup((tmp) ? tmp : "");
+				lst->arg[i] = ft_strdup((var) ? var : "");
+                ft_strdel(&var);
 			}
 		}
 		lst = lst->next;

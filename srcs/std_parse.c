@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/02/20 23:46:54 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:53:38 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,40 @@ static void	format_stdin(t_sh *ell)
 	}
     free_array(tab);
     ft_strdel(&line);
-    //ft_strdel(&(*ell).cmd);
 	get_var(&cmds, (*ell).env);
 	tilt(&cmds, *ell);
 	(*ell).cmds = cmds;
 }
 
+static int  handle_right(t_sh *ell, t_vect *lst)
+{
+    char    *tmp;
+    int     ret;
+
+    ret = 0;
+    if ((tmp = build_path((*ell), lst)))
+    {
+        if (!access(tmp, X_OK))
+            ret = exec_cmd((*ell), tmp, lst);
+        else
+            ret = -3;
+    }
+    else if (!tmp)
+    {
+        if (!access((const char*)lst->arg[0], X_OK))
+	        ret = exec_cmd((*ell), lst->arg[0], lst);
+        else
+            ret = (!access((const char*)lst->arg[0], F_OK)) ? -3 : -1;
+    }
+    else
+	    ret = -1;
+	ft_strdel(&tmp);
+    return (ret);
+}
+
 static int	browse_cmd(t_sh *ell)
 {
 	t_vect	*lst;
-	char	*tmp;
 	int		ret;
 
 	lst = (*ell).cmds;
@@ -55,16 +79,9 @@ static int	browse_cmd(t_sh *ell)
 	{
 		ret = 0;
 		if ((ret = check_builtin(&(*ell), lst)) == 0)
-		{
-			if ((tmp = build_path((*ell), lst)))
-				ret = exec_cmd((*ell), tmp, lst);
-			else if (!tmp && !access((const char*)lst->arg[0], X_OK))
-				ret = exec_cmd((*ell), lst->arg[0], lst);
-			else
-				ret = -1;
-			ft_strdel(&tmp);
-		}
-		puterror((ret == -1) ? "commande inconnue...\n" : NULL);
+			ret = handle_right(ell, lst);
+	    puterror((ret == -1) ? UNOW : NULL);
+        puterror((ret == -3) ? DENY : NULL);
 		lst = (ret != -2) ? lst->next : lst;
 	}
 	if (ret == -2 && lst->next)
@@ -164,7 +181,7 @@ void		read_stdin(t_sh ell)
 		{
 			format_stdin(&ell);
 			if (count_delim(ell.cmd, ';') > count_lst(ell.cmds))
-				puterror("erreur de syntaxe\n");
+				puterror(SYNTAX);
 			else
 				built = browse_cmd(&ell);
 			free_vector(&ell.cmds);
