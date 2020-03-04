@@ -6,12 +6,17 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 02:18:38 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 16:54:59 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:47:53 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	free_two_var_to_feet_norm(char **a, char **b)
+{
+	ft_strdel(a);
+	ft_strdel(b);
+}
 
 char		*build_path(t_sh ell, t_vect *lst)
 {
@@ -19,30 +24,26 @@ char		*build_path(t_sh ell, t_vect *lst)
 	char	*tmp;
 	char	*tmp2;
 	char	**paths;
-    int     ret;
+	int		ret;
 
-	i = 0;
+	i = -1;
 	tmp = NULL;
 	tmp2 = NULL;
 	paths = ft_strsplit(findenv(ell.env, "PATH"), ':');
-	while (paths && paths[i])
+	while (paths && paths[++i])
 	{
 		tmp2 = ft_strjoin(paths[i], "/");
 		tmp = (tmp2) ? ft_strjoin(tmp2, lst->arg[0]) : NULL;
 		if (tmp && !(ret = access((const char*)tmp, F_OK)))
-        {
-            ft_strdel(&tmp2);
-            free_array(paths);
+		{
+			ft_strdel(&tmp2);
+			free_array(paths);
 			return (tmp);
 		}
-        ft_strdel(&tmp);
-        ft_strdel(&tmp2);
-        i += 1;
+		free_two_var_to_feet_norm(&tmp, &tmp2);
 	}
-    ft_strdel(&tmp);
-    ft_strdel(&tmp2);
-    if (paths)
-		free_array(paths);
+	free_two_var_to_feet_norm(&tmp, &tmp2);
+	free_array(paths);
 	return (NULL);
 }
 

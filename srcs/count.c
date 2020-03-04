@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:22:37 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 15:25:51 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:56:00 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,13 @@ void		free_array(char **array)
 	int		i;
 
 	i = 0;
-	while (array[i])
+	while (array && array[i])
 	{
-		////printf("array[%d] {%p}\n", i, array[i]);
 	    ft_strdel(&array[i]);
 		i++;
 	}
-	//printf("array {%p}\n", array);
-	free(array);
+	if (array)
+		free(array);
 	array = NULL;
 }
 

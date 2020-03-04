@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 16:52:30 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:42:50 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,32 @@ void		builtin_env(t_sh *ell, t_vect *cmd)
 	putab((*ell).env);
 }
 
+static int	array_cmp(char **a, char **b)
+{
+	int		i;
+	int		ret;
+
+	i = 0;
+	ret = 0;
+	while (a[i] && b[i] && !ret)
+	{
+		ret = ft_strcmp(a[i], b[i]);
+		i++;
+	}
+	return (ret);
+}
+
 void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
 {
     char    **tab;
 
-	tab = delenv((*ell).env, cmd->arg[1]);
-	if ((*ell).env != (*ell).venv && (*ell).env != tab)
-        free_array((*ell).env);
-    (*ell).env = tab;
+	if (cmd->arg[1])
+	{
+		tab = delenv((*ell).env, cmd->arg[1]);
+		if ((*ell).env != (*ell).venv && array_cmp((*ell).env, tab))
+	        free_array((*ell).env);
+    	(*ell).env = tab;
+	}
 }
 
 void		builtin_setenv(t_sh *ell, t_vect *cmd)

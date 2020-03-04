@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:36:56 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 16:53:38 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:43:47 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	format_stdin(t_sh *ell)
 	char	*line;
 	int		i;
 
-	i = 0;
+	i = -1;
 	cmds = NULL;
 	line = NULL;
 	line = replace_delim((*ell).cmd, '\t', ' ');
 	tab = ft_strsplit((line) ? line : (*ell).cmd, ';');
-	while (tab[i])
+	while (tab[++i])
 	{
 		args = ft_strsplit(tab[i], ' ');
 		if (cmds != NULL && args[0])
@@ -33,39 +33,38 @@ static void	format_stdin(t_sh *ell)
 		else if (args[0])
 			cmds = vect_new(args);
 		free_array(args);
-		i++;
 	}
-    free_array(tab);
-    ft_strdel(&line);
+	free_array(tab);
+	ft_strdel(&line);
 	get_var(&cmds, (*ell).env);
 	tilt(&cmds, *ell);
 	(*ell).cmds = cmds;
 }
 
-static int  handle_right(t_sh *ell, t_vect *lst)
+static int	handle_right(t_sh *ell, t_vect *lst)
 {
-    char    *tmp;
-    int     ret;
+	char	*tmp;
+	int		ret;
 
-    ret = 0;
-    if ((tmp = build_path((*ell), lst)))
-    {
-        if (!access(tmp, X_OK))
-            ret = exec_cmd((*ell), tmp, lst);
-        else
-            ret = -3;
-    }
-    else if (!tmp)
-    {
-        if (!access((const char*)lst->arg[0], X_OK))
-	        ret = exec_cmd((*ell), lst->arg[0], lst);
-        else
-            ret = (!access((const char*)lst->arg[0], F_OK)) ? -3 : -1;
-    }
-    else
-	    ret = -1;
+	ret = 0;
+	if ((tmp = build_path((*ell), lst)))
+	{
+		if (!access(tmp, X_OK))
+			ret = exec_cmd((*ell), tmp, lst);
+		else
+			ret = -3;
+	}
+	else if (!tmp)
+	{
+		if (!access((const char*)lst->arg[0], X_OK))
+			ret = exec_cmd((*ell), lst->arg[0], lst);
+		else
+			ret = (!access((const char*)lst->arg[0], F_OK)) ? -3 : -1;
+	}
+	else
+		ret = -1;
 	ft_strdel(&tmp);
-    return (ret);
+	return (ret);
 }
 
 static int	browse_cmd(t_sh *ell)
@@ -80,92 +79,13 @@ static int	browse_cmd(t_sh *ell)
 		ret = 0;
 		if ((ret = check_builtin(&(*ell), lst)) == 0)
 			ret = handle_right(ell, lst);
-	    puterror((ret == -1) ? UNOW : NULL);
-        puterror((ret == -3) ? DENY : NULL);
+		puterror((ret == -1) ? UNOW : NULL);
+		puterror((ret == -3) ? DENY : NULL);
 		lst = (ret != -2) ? lst->next : lst;
 	}
 	if (ret == -2 && lst->next)
 		puterror("Il y a des tâches stoppées.\n");
 	return (ret);
-}
-
-char				*str_join_free(char **s1, char **s2)
-{
-	char			*new;
-
-	if (s1 && s2 && *s1 && *s2)
-	{
-		if (!(new = malloc(sizeof(char) * (ft_strlen(*s1)
-			+ ft_strlen(*s2) + 1))))
-			return (NULL);
-		new = ft_strcpy(new, *s1);
-		new = ft_strcat(new, *s2);
-		ft_strdel(s1);
-		ft_strdel(s2);
-	}
-	else if (!*s1)
-	{
-		new = ft_strdup(*s2);
-		ft_strdel(s2);
-	}
-	else
-	{
-		new = ft_strdup(*s1);
-		ft_strdel(s1);
-	}
-	return (new);
-}
-
-int					fd_parser(const int fd, char **line)
-{
-	char			buffer[BUFF_SIZE + 1];
-	char			*tmp;
-	int				ret;
-
-	if ((ret = read(fd, buffer, BUFF_SIZE)) < 0)
-		return (-1);
-	buffer[ret] = '\0';
-	*line = ft_strdup(buffer);
-	while (ret > 0 && !(ft_strchr(*line, '\n')))
-	{
-		if ((ret = read(fd, buffer, BUFF_SIZE)) > 0)
-		{
-			buffer[ret] = '\0';
-			tmp = ft_strdup(buffer);
-			*line = str_join_free(line, &tmp);
-		}
-	}
-	return (ret);
-}
-
-int					strchri(char *str, char c)
-{
-	int				i;
-
-	i = 0;
-	while (str && str[i] && str[i] != c)
-		i++;
-	return (i);
-}
-
-int					gnl(const int fd, char **line)
-{
-	static	char	*str;
-	static	int		ret;
-	char			*tmp;
-
-	if (fd <= -1 || line == NULL)
-		return (-1);
-	if ((ret = fd_parser(fd, line)) <= -1)
-		return (-1);
-	tmp = str_join_free(&str, line);
-	if (ft_strchr(tmp, '\n') && ft_strchr(tmp, '\n') + 1)
-		str = ft_strdup(ft_strchr(tmp, '\n') + 1);
-	*line = ft_strsub(tmp, 0, strchri(tmp, '\n'));
-    if (ft_strchr(tmp, '\n') && ft_strchr(tmp, '\n') + 1)
-	    ft_strdel(&str);
-	ft_strdel(&tmp);
-	return ((ft_strlen(*line) || ret || str) ? 1 : ret);
 }
 
 void		read_stdin(t_sh ell)
@@ -176,7 +96,7 @@ void		read_stdin(t_sh ell)
 	while (built != -2)
 	{
 		ft_putstr(ell.prompt);
-		gnl(0, &(ell.cmd));
+		get_next_line(0, &(ell.cmd));
 		if (ft_strcmp(ell.cmd, ""))
 		{
 			format_stdin(&ell);
@@ -186,8 +106,8 @@ void		read_stdin(t_sh ell)
 				built = browse_cmd(&ell);
 			free_vector(&ell.cmds);
 		}
-    	ft_strdel(&(ell.cmd));
+		ft_strdel(&(ell.cmd));
 	}
-    if (ell.env != ell.venv && ell.env)
-        free_array(ell.env);
+	if (ell.env != ell.venv && ell.env)
+		free_array(ell.env);
 }

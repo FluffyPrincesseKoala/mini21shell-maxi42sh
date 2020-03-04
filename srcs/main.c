@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:52:17 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 16:52:13 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:13:28 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int			main(int argc, char **argv, char **env)
 	ell.env = env;
 	ell.venv = env;
 	read_stdin(ell);
-    if (ell.args)
-        free_array(ell.args);
-    if (ell.cmds)
-        free_vector(&ell.cmds);
-    if (ell.prompt)
-        ft_strdel(&ell.prompt);
+	if (ell.args)
+		free_array(ell.args);
+	if (ell.cmds)
+		free_vector(&ell.cmds);
+	if (ell.prompt)
+		ft_strdel(&ell.prompt);
 	return (0);
 }

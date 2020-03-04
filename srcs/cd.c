@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/03 16:04:23 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:41:04 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,58 @@ void			tilt(t_vect **head, t_sh ell)
 	}
 }
 
+static char		**split_var(char **env, char *str)
+{
+	char		*tmp;
+	char		**var;
+	int			k;
+
+	k = 0;
+	var = ft_strsplit(str, ':');
+	while (var[k] && ft_strchr(var[k], '$'))
+	{
+		tmp = findenv(env, ft_strchr(var[k], '$') + 1);
+		ft_strdel(&var[k]);
+		var[k] = ft_strdup((tmp) ? tmp : "");
+		k++;
+	}
+	var[k] = NULL;
+	return (var);
+}
+
+static char		*use_shell_var(char **env, char *str)
+{
+	char		*tmp;
+	char		*ret;
+	char		**var;
+	int			k;
+
+	var = split_var(env, str);
+	ret = NULL;
+	k = array_len(var);
+	while (k--)
+	{
+		tmp = ft_strjoin(var[k], ret);
+		if (ret)
+			ft_strdel(&ret);
+		ret = ft_strdup(tmp);
+		ft_strdel(&tmp);
+		if (k)
+		{
+			tmp = ft_strjoin(":", ret);
+			ft_strdel(&ret);
+			ret = ft_strdup(tmp);
+			ft_strdel(&tmp);
+		}
+	}
+	free_array(var);
+	return (ret);
+}
+
 void			get_var(t_vect **head, char **env)
 {
 	t_vect		*lst;
 	char		*tmp;
-	char		*var;
 	int			i;
 
 	lst = NULL;
@@ -89,18 +136,12 @@ void			get_var(t_vect **head, char **env)
 		i = -1;
 		while (lst->arg[++i])
 		{
-			if (lst->arg[i] && lst->arg[i][0] == '$')
+			if (lst->arg[i] && ft_strchr(lst->arg[i], '$'))
 			{
-                int k = 0;
-                while (lst->arg[i][k] && lst->arg[i][k] != ':')
-                    k++;
-				var = ft_strndup(&lst->arg[i][1], k - 1);
-				tmp = findenv(env, var);
-                ft_strdel(&var);
-                var = ft_strjoin(tmp, &lst->arg[i][k]);
+				tmp = use_shell_var(env, lst->arg[i]);
 				ft_strdel(&lst->arg[i]);
-				lst->arg[i] = ft_strdup((var) ? var : "");
-                ft_strdel(&var);
+				lst->arg[i] = ft_strdup(tmp);
+				ft_strdel(&tmp);
 			}
 		}
 		lst = lst->next;
