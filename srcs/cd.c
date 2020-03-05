@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/04 18:41:04 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:52:48 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void			change_dir(const char *path, t_sh *ell)
 		{
 			if (!(cwd = getcwd(buff, 4096)))
 				puterror("Permission denied\n");
-			(*ell).env = update_key((*ell).env, "PWD=", cwd, "OLDPWD=");
+            printf("%spath = %s%s\n",RED, cwd, RESET);
+			(*ell).env = update_key((*ell).env, "PWD=", (char*)cwd, "OLDPWD=");
 		}
 	}
 	else

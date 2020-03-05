@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/04 19:42:50 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:25:33 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
         tmp = ft_strdup(findenv((*ell).env, "HOME="));
 		change_dir(tmp, ell);
 	    ft_strdel(&tmp);
+        ft_putstr(RESET);
 	}
     else
 		change_dir(cmd->arg[1], ell);

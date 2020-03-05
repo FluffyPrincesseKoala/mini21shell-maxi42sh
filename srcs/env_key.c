@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/04 19:53:08 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:51:19 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@ char		**change_key(char **env, char *var)
 	char	**nenv;
 
 	i = -1;
-	j = -1;
+	j = 0;
 	key_len = lendelim(var, '=', 0);
 	if (!(nenv = (char**)malloc(sizeof(char *) * (array_len(env) + 1))))
 		return (env);
-	while (env[++i] && ++j)
+	while (env[++i])
 	{
 		if (key_len && !ft_strncmp(env[i], var, key_len))
-			key_len = 0;
-		nenv[j] = (!key_len) ? ft_strdup(var) : ft_strdup(env[i]);
-	}
+        {
+            key_len = 0;
+	    	nenv[j] = ft_strdup(var);
+        }
+        else
+    		nenv[j] = ft_strdup(env[i]);
+        j++;
+    }
 	nenv[j] = NULL;
 	if (key_len)
-	{
 		free_array(nenv);
-		return (addenv(env, var));
-	}
-	return (nenv);
+	return ((nenv) ? nenv : addenv(env, var));
 }
 
 char		**update_key(char **env, char *up, char *key, char *dest)
@@ -47,6 +49,7 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 	char	**tab;
 
 	tab = NULL;
+    puterror("Start:\n");
 	if (up && key)
 	{
 		if (dest)
@@ -61,5 +64,6 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 		ft_strdel(&new);
 		ft_strdel(&old);
 	}
+    puterror("END:\n");
 	return (env);
 }
