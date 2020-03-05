@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 18:25:33 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:22:07 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 	tmpbis = NULL;
 	while (cmd->arg[i])
 		i++;
-	if (i == 2)
-		tmp = ft_strdup(cmd->arg[1]);
-	else if (i > 2)
+    if (i > 2)
 	{
 		tmpbis = ft_strjoin(cmd->arg[1], "=");
 		tmp = ft_strjoin(tmpbis, cmd->arg[2]);
 	}
-	else
+	else if (i != 2)
 		return ;
+    else
+        tmp = ft_strjoin(cmd->arg[1], "=");
     tab = change_key((*ell).env, tmp);
     if ((*ell).env != (*ell).venv)
         free_array((*ell).env);
@@ -99,7 +99,6 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
         tmp = ft_strdup(findenv((*ell).env, "HOME="));
 		change_dir(tmp, ell);
 	    ft_strdel(&tmp);
-        ft_putstr(RESET);
 	}
     else
 		change_dir(cmd->arg[1], ell);

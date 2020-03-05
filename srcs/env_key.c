@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 18:51:19 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:26:15 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		**change_key(char **env, char *var)
 	nenv[j] = NULL;
 	if (key_len)
 		free_array(nenv);
-	return ((nenv) ? nenv : addenv(env, var));
+	return ((key_len) ? addenv(env, var) : nenv);
 }
 
 char		**update_key(char **env, char *up, char *key, char *dest)
@@ -49,7 +49,6 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 	char	**tab;
 
 	tab = NULL;
-    puterror("Start:\n");
 	if (up && key)
 	{
 		if (dest)
@@ -64,6 +63,5 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 		ft_strdel(&new);
 		ft_strdel(&old);
 	}
-    puterror("END:\n");
 	return (env);
 }
