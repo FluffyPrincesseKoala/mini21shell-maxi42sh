@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:59:31 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 20:02:39 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 15:46:47 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static char		**split_var(char **env, char *str)
 	var = ft_strsplit(str, ':');
 	while (var[k])
 	{
-        if (ft_strchr(var[k], '$'))
-        {
-		    tmp = findenv(env, ft_strchr(var[k], '$') + 1);
-		    ft_strdel(&var[k]);
-    		var[k] = ft_strdup((tmp) ? tmp : "");
-        }
+		if (ft_strchr(var[k], '$'))
+		{
+			tmp = findenv(env, ft_strchr(var[k], '$') + 1);
+			ft_strdel(&var[k]);
+			var[k] = ft_strdup((tmp) ? tmp : "");
+		}
 		k++;
 	}
 	var[k] = NULL;

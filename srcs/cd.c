@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 17:57:15 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 20:04:14 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:19:37 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			change_dir(const char *path, t_sh *ell)
 		else
 		{
 			if (!(cwd = getcwd(buff, 4096)))
-				puterror("Permission denied\n");
+				puterror(DENY);
 			(*ell).env = update_key((*ell).env, "PWD=", cwd, "OLDPWD=");
 		}
 	}
@@ -41,35 +41,6 @@ void			change_dir(const char *path, t_sh *ell)
 	{
 		puterror((char*)path);
 		puterror(": ");
-		puterror("No such file or directory\n");
-	}
-}
-
-void			tilt(t_vect **head, t_sh ell)
-{
-	t_vect		*lst;
-	char		*map;
-	char		**tab;
-	int			i;
-
-	lst = NULL;
-	if (head)
-		lst = *head;
-	while (lst)
-	{
-		i = -1;
-		while (lst->arg[++i])
-		{
-			if (ft_strchr(lst->arg[i], '~'))
-			{
-				tab = ft_strsplit(lst->arg[i], '~');
-				map = ft_strjoin(tab[0], findenv(ell.env, "HOME="));
-				ft_strdel(&lst->arg[i]);
-				lst->arg[i] = ft_strjoin(map, tab[0]);
-				ft_strdel(&map);
-				free_array(tab);
-			}
-		}
-		lst = lst->next;
+		puterror(NOFOD);
 	}
 }

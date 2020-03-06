@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:36:43 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 20:10:02 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:24:04 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@
 # define RESET		    "\033[0m"
 # define NODIR	    	"Not a directory\n"
 # define DENY		    "Permission denied\n"
-# define UNOW		    "Unknow command\n"
+# define UNOW		    "Command not found\n"
 # define SYNTAX         "Syntax error\n"
+# define NOFOD			"No such file or directory\n"
 # define E_CHDIR	    -1
 
 typedef struct			s_vect
@@ -90,6 +91,7 @@ t_vect					*vect_add(t_vect **head, t_vect *new);
 void					free_vector(t_vect **head);
 void					vect_print(t_vect *lst);
 size_t					count_lst(t_vect *head);
-int	            		lendelim(char *str, char delim, int start);
+int						lendelim(char *str, char delim, int start);
+int						array_cmp(char **a, char **b);
 
 #endif

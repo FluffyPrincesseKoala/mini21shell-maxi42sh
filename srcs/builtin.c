@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:53:40 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 19:22:07 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:03:02 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,16 @@ void		builtin_env(t_sh *ell, t_vect *cmd)
 	putab((*ell).env);
 }
 
-static int	array_cmp(char **a, char **b)
-{
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	while (a[i] && b[i] && !ret)
-	{
-		ret = ft_strcmp(a[i], b[i]);
-		i++;
-	}
-	return (ret);
-}
-
 void		builtin_unsetenv(t_sh *ell, t_vect *cmd)
 {
-    char    **tab;
+	char	**tab;
 
 	if (cmd->arg[1])
 	{
 		tab = delenv((*ell).env, cmd->arg[1]);
-		if ((*ell).env != (*ell).venv && array_cmp((*ell).env, tab))
-	        free_array((*ell).env);
-    	(*ell).env = tab;
+		if (((*ell).env != (*ell).venv) && array_cmp((*ell).env, tab))
+			free_array((*ell).env);
+		(*ell).env = tab;
 	}
 }
 
@@ -50,7 +35,7 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 {
 	char	*tmp;
 	char	*tmpbis;
-    char    **tab;
+	char	**tab;
 	int		i;
 
 	i = 0;
@@ -58,20 +43,20 @@ void		builtin_setenv(t_sh *ell, t_vect *cmd)
 	tmpbis = NULL;
 	while (cmd->arg[i])
 		i++;
-    if (i > 2)
+	if (i > 2)
 	{
 		tmpbis = ft_strjoin(cmd->arg[1], "=");
 		tmp = ft_strjoin(tmpbis, cmd->arg[2]);
 	}
 	else if (i != 2)
 		return ;
-    else
-        tmp = ft_strjoin(cmd->arg[1], "=");
-    tab = change_key((*ell).env, tmp);
-    if ((*ell).env != (*ell).venv)
-        free_array((*ell).env);
-    (*ell).env = tab;
-    ft_strdel(&tmp);
+	else
+		tmp = ft_strjoin(cmd->arg[1], "=");
+	tab = change_key((*ell).env, tmp);
+	if ((*ell).env != (*ell).venv)
+		free_array((*ell).env);
+	(*ell).env = tab;
+	ft_strdel(&tmp);
 	ft_strdel(&tmpbis);
 }
 
@@ -91,16 +76,16 @@ void		builtin_cd(t_sh *ell, t_vect *cmd)
 		tmp = ft_strdup(findenv((*ell).env, "OLDPWD="));
 		tmpbis = ft_strjoin("/", tmp);
 		streplace((&cmd->arg[1]), &tmpbis);
-	    ft_strdel(&tmp);
-	    ft_strdel(&tmpbis);
+		ft_strdel(&tmp);
+		ft_strdel(&tmpbis);
 	}
 	if (i == 1)
-    {
-        tmp = ft_strdup(findenv((*ell).env, "HOME="));
+	{
+		tmp = ft_strdup(findenv((*ell).env, "HOME="));
 		change_dir(tmp, ell);
-	    ft_strdel(&tmp);
+		ft_strdel(&tmp);
 	}
-    else
+	else
 		change_dir(cmd->arg[1], ell);
 }
 
