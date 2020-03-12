@@ -6,15 +6,20 @@
 #    By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 15:09:42 by cylemair          #+#    #+#              #
-#    Updated: 2020/03/05 18:59:57 by cylemair         ###   ########.fr        #
+#    Updated: 2020/03/12 17:33:11 by cylemair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	clang -g3
 
-CFLAGS	+=	-Werror -Wall -Wextra -I ./includes/
+CFLAGS	+=	-Werror -Wall -Wextra
 
-LDFLAGS	+=	-I ./includes/ -L libft/ -lft
+LDFLAGS	=	-I./includes/ -lft -L ./libft/
+
+INC		=	./includes/	\
+			./libft/	\
+
+INCLU	:=	$(addprefix -I, $(INC))
 
 NAME	=	minishell
 
@@ -36,19 +41,21 @@ OBJS	=	$(SRC:.c=.o)
 
 all: $(NAME)
 
+srcs/%.o: srcs/%.c
+	@$(CC) $(INCLU) -c $< -o $@
+
 $(NAME): $(OBJS)
-	make -C libft/
-	$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+	@make -C libft/
+	@$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
-	make clean -C libft/
+	@make clean -C libft/
 	$(RM) $(OBJS)
 
 fclean: clean
-	make fclean -C libft/
-	$(RM) $(NAME)
+	@make fclean -C libft/
+	@$(RM) $(NAME)
 
 re: fclean all
-	make re -C libft/
 
 PHONY: all clean fclean re

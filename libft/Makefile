@@ -73,16 +73,18 @@ RM		=		rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(SRCS)
-	$(CC) $(CFLAGS) -c $(SRCS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
-	
+$(OBJS): $(SRCS)
+	@$(CC) $(CFLAGS) -c $(SRCS)
+
+$(NAME): $(OBJS)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
