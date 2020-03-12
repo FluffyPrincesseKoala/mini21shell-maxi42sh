@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cylemair <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:36:21 by cylemair          #+#    #+#             */
-/*   Updated: 2019/03/01 14:36:21 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:33:29 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ int					get_next_line(const int fd, char **line)
 		str = ft_strdup(ft_strchr(tmp, '\n') + 1);
 	*line = ft_strsub(tmp, 0, strchri(tmp, '\n'));
 	ft_strdel(&tmp);
+	ft_strdel(&str);
 	return ((ft_strlen(*line) || ret || str) ? 1 : ret);
 }

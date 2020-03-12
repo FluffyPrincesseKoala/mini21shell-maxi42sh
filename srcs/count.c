@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:22:37 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 19:27:52 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 15:49:41 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,10 @@ void		free_array(char **array)
 	i = 0;
 	while (array && array[i])
 	{
-	    ft_strdel(&array[i]);
+		ft_strdel(&array[i]);
 		i++;
 	}
 	if (array)
 		free(array);
 	array = NULL;
-}
-
-int			lendelim(char *str, char delim, int start)
-{
-	int		i;
-
-	i = start;
-	while (str && str[i] && str[i] != delim)
-		i++;
-	return (i);
 }

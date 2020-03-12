@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:58:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/04 19:43:31 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:53:03 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ char		**copy_array(char **array)
 char		*findenv(char **env, char *var)
 {
 	int		i;
-    int     len;
+	int		len;
 
 	i = 0;
-    len = lendelim(var, '=', 0);
+	len = lendelim(var, '=', 0);
 	while (env && env[i])
 	{
 		if (!ft_strncmp(env[i], var, len))
@@ -67,14 +67,14 @@ char		**delenv(char **env, char *var)
 		}
 	}
 	if (i == j)
-    {
-        while (j--)
-            ft_strdel(&new[j]);
+	{
+		while (j--)
+			ft_strdel(&new[j]);
 		free(new);
-	    return (env);
-    }
-    new[j] = NULL;
-    return (new);
+		return (env);
+	}
+	new[j] = NULL;
+	return (new);
 }
 
 char		**addenv(char **env, char *var)

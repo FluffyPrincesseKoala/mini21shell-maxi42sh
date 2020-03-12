@@ -6,7 +6,7 @@
 /*   By: cylemair <cylemair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:47 by cylemair          #+#    #+#             */
-/*   Updated: 2020/03/05 19:26:15 by cylemair         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:12:00 by cylemair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ char		**change_key(char **env, char *var)
 	while (env[++i])
 	{
 		if (key_len && !ft_strncmp(env[i], var, key_len))
-        {
-            key_len = 0;
-	    	nenv[j] = ft_strdup(var);
-        }
-        else
-    		nenv[j] = ft_strdup(env[i]);
-        j++;
-    }
+		{
+			key_len = 0;
+			nenv[j] = ft_strdup(var);
+		}
+		else
+			nenv[j] = ft_strdup(env[i]);
+		j++;
+	}
 	nenv[j] = NULL;
 	if (key_len)
 		free_array(nenv);
@@ -56,6 +56,7 @@ char		**update_key(char **env, char *up, char *key, char *dest)
 			tmp = findenv(env, up);
 			old = ft_strjoin(dest, tmp);
 			tab = change_key(env, old);
+			free_array(env);
 		}
 		new = ft_strjoin(up, key);
 		env = change_key((tab) ? tab : env, new);
