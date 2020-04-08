@@ -57,11 +57,13 @@ static char		*replace_tilt(char *str, char *new, size_t len)
 static char		*find_tilt(char *str, char **env)
 {
 	size_t		len;
+	size_t		diff;
 	char		*tmp;
 	char		*ret;
 
 	tmp = ft_strdup(findenv(env, "HOME="));
-	len = ft_strlen(str) + ((count_delim(str, '~') * ft_strlen(tmp)) - count_delim(str, '~'));
+	diff = count_delim(str, '~') * ft_strlen(tmp);
+	len = ft_strlen(str) + diff - count_delim(str, '~');
 	ret = replace_tilt(str, tmp, len);
 	ft_strdel(&tmp);
 	return (ret);
@@ -70,9 +72,10 @@ static char		*find_tilt(char *str, char **env)
 void			tilt(t_vect **head, t_sh ell)
 {
 	t_vect		*lst;
-	char		*map = NULL;
+	char		*map;
 	int			i;
 
+	map = NULL;
 	lst = NULL;
 	if (head)
 		lst = *head;
